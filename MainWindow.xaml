@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Tools365"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Tools365"
+    mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="RootGrid">
+        <Grid.Resources>
+            <SolidColorBrush x:Key="NavigationPillInactiveBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="NavigationPillActiveBrush" Color="#800020" />
+            <SolidColorBrush x:Key="NavigationPillActiveHoverBrush" Color="#1D7895" />
+            <SolidColorBrush x:Key="NavigationPillInactiveHoverBrush" Color="#aa868fb3" />
+            <SolidColorBrush x:Key="NavigationPillActiveForegroundBrush" Color="White" />
+            <SolidColorBrush x:Key="NavigationPillInactiveForegroundBrush" Color="#243447" />
+            <AcrylicBrush
+                x:Key="NavigationCapsuleAcrylicBrush"
+                FallbackColor="#E6F4F8FA"
+                TintColor="#F4FAFC"
+                TintOpacity="0.72" />
+            <ThemeShadow x:Key="NavigationCapsuleShadow" />
+            
+            <Style x:Key="NavigationPillStyle" TargetType="ToggleButton">
+                <Setter Property="Background" Value="{StaticResource NavigationCapsuleAcrylicBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource NavigationPillInactiveForegroundBrush}" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Shadow" Value="{StaticResource NavigationCapsuleShadow}" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="MinHeight" Value="40" />
+                <Setter Property="Padding" Value="12,12,12,12" />
+            </Style>
+
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TitleBar
+            x:Name="AppTitleBar"
+            Title="Tools365"
+            BackRequested="TitleBar_BackRequested"
+            IsBackButtonVisible="{x:Bind NavFrame.CanGoBack, Mode=OneWay}"
+            IsPaneToggleButtonVisible="False">
+            <TitleBar.IconSource>
+                <ImageIconSource ImageSource="Assets/AppIcon.ico" />
+            </TitleBar.IconSource>
+        </TitleBar>
+
+        <Border
+            x:Name="NavigationCapsule"
+            Grid.Row="1"
+            Margin="160,12,160,0"
+            Height="52"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Background="{StaticResource NavigationCapsuleAcrylicBrush}"
+            BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+            BorderThickness="1"
+            Padding="4,4,4,4"
+            Shadow="{StaticResource NavigationCapsuleShadow}"
+            Translation="0,0,32"
+            CornerRadius="8">
+            <Grid ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ToggleButton
+                    x:Name="FamilyButton"
+                    Click="CategoryButton_Click"
+                    Content="Family"
+                    IsChecked="True"
+                    PointerEntered="CategoryButton_PointerEntered"
+                    PointerExited="CategoryButton_PointerExited"
+                    Style="{StaticResource NavigationPillStyle}"
+                    Tag="Family" />
+                <ToggleButton
+                    x:Name="HealthButton"
+                    Grid.Column="1"
+                    Click="CategoryButton_Click"
+                    Content="Health"
+                    PointerEntered="CategoryButton_PointerEntered"
+                    PointerExited="CategoryButton_PointerExited"
+                    Style="{StaticResource NavigationPillStyle}"
+                    Tag="Health" />
+                <ToggleButton
+                    x:Name="FinanceButton"
+                    Grid.Column="2"
+                    Click="CategoryButton_Click"
+                    Content="Finance"
+                    PointerEntered="CategoryButton_PointerEntered"
+                    PointerExited="CategoryButton_PointerExited"
+                    Style="{StaticResource NavigationPillStyle}"
+                    Tag="Finance" />
+                <ToggleButton
+                    x:Name="UtilityButton"
+                    Grid.Column="3"
+                    Click="CategoryButton_Click"
+                    Content="Utility"
+                    PointerEntered="CategoryButton_PointerEntered"
+                    PointerExited="CategoryButton_PointerExited"
+                    Style="{StaticResource NavigationPillStyle}"
+                    Tag="Utility" />
+                <ToggleButton
+                    x:Name="EducationButton"
+                    Grid.Column="4"
+                    Click="CategoryButton_Click"
+                    Content="Education"
+                    PointerEntered="CategoryButton_PointerEntered"
+                    PointerExited="CategoryButton_PointerExited"
+                    Style="{StaticResource NavigationPillStyle}"
+                    Tag="Education" />
+                <ToggleButton
+                    x:Name="TechnologyButton"
+                    Grid.Column="5"
+                    Click="CategoryButton_Click"
+                    Content="Technology"
+                    PointerEntered="CategoryButton_PointerEntered"
+                    PointerExited="CategoryButton_PointerExited"
+                    Style="{StaticResource NavigationPillStyle}"
+                    Tag="Technology" />
+            </Grid>
+        </Border>
+        <Frame
+            x:Name="NavFrame"
+            Grid.Row="1"
+            Margin="0,72,0,0" />
+    </Grid>
+</Window>

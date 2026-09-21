@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Health.BmiCalculatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="BMI calculator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid Padding="24" RowSpacing="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <InfoBar
+            x:Name="ResultBar"
+            Grid.Row="0"
+            IsOpen="False"
+            IsClosable="False"
+            Severity="Informational" />
+
+        <StackPanel Grid.Row="1" Spacing="4">
+            <TextBlock
+                FontSize="24"
+                FontWeight="SemiBold"
+                Text="BMI calculator" />
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="Enter your weight and height in either format."
+                TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Spacing="8">
+            <TextBlock
+                FontSize="16"
+                FontWeight="SemiBold"
+                Text="Weight" />
+            <Grid ColumnSpacing="16" RowSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="6">
+                    <TextBlock Text="Kilograms (kg)" />
+                    <TextBox
+                        x:Name="WeightKilogramsBox"
+                        TextChanged="WeightKilogramsBox_TextChanged"
+                        PlaceholderText="e.g. 70"
+                        InputScope="Number" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Spacing="6">
+                    <TextBlock Text="Pounds (lb)" />
+                    <TextBox
+                        x:Name="WeightPoundsBox"
+                        TextChanged="WeightPoundsBox_TextChanged"
+                        PlaceholderText="e.g. 154"
+                        InputScope="Number" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Spacing="8">
+            <TextBlock
+                FontSize="16"
+                FontWeight="SemiBold"
+                Text="Height" />
+            <Grid ColumnSpacing="16" RowSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="6">
+                    <TextBlock Text="Centimeters (cm)" />
+                    <TextBox
+                        x:Name="HeightCentimetersBox"
+                        TextChanged="HeightCentimetersBox_TextChanged"
+                        PlaceholderText="e.g. 175"
+                        InputScope="Number" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Spacing="6">
+                    <TextBlock Text="Feet" />
+                    <TextBox
+                        x:Name="HeightFeetBox"
+                        TextChanged="HeightFeetBox_TextChanged"
+                        PlaceholderText="e.g. 5"
+                        InputScope="Number" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Spacing="6">
+                    <TextBlock Text="Inches" />
+                    <TextBox
+                        x:Name="HeightInchesBox"
+                        TextChanged="HeightInchesBox_TextChanged"
+                        PlaceholderText="e.g. 9"
+                        InputScope="Number" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <Button
+            Grid.Row="4"
+            HorizontalAlignment="Left"
+            Click="CalculateButton_Click"
+            Content="Calculate BMI" />
+    </Grid>
+</Window>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Tools365 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Tools365 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
