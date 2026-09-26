@@ -44,6 +44,41 @@ public sealed partial class CategoryPage : Page
         }
     }
 
+    private void ExchangeFormats_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button { DataContext: ToolCard card })
+        {
+            card.SwapFormats();
+        }
+    }
+
+    private async void InfoButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { DataContext: ToolCard card })
+        {
+            return;
+        }
+
+        var dialog = new ContentDialog
+        {
+            Title = card.Title,
+            Content = card.Description,
+            CloseButtonText = "Close",
+            XamlRoot = XamlRoot
+        };
+
+        await dialog.ShowAsync();
+    }
+
+    public static Visibility ConverterVisibility(bool isConverter) =>
+        isConverter ? Visibility.Visible : Visibility.Collapsed;
+
+    public static Visibility StandardCardVisibility(bool isConverter, bool isKubernetesCalculator) =>
+        isConverter || isKubernetesCalculator ? Visibility.Collapsed : Visibility.Visible;
+
+    public static Visibility KubernetesVisibility(bool isKubernetesCalculator) =>
+        isKubernetesCalculator ? Visibility.Visible : Visibility.Collapsed;
+
     private static IReadOnlyList<ToolCard> GetCards(string category)
     {
         return category switch
