@@ -31,24 +31,164 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="local:ToolCard">
-                    <Button
-                        Width="320"
-                        Height="148"
-                        Click="ToolCard_Click"
-                        Margin="0,0,16,16"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch">
-                        <StackPanel Spacing="8">
-                            <TextBlock
-                                FontSize="20"
-                                FontWeight="SemiBold"
-                                Text="{x:Bind Title}" />
-                            <TextBlock
-                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Text="{x:Bind Description}"
-                                TextWrapping="Wrap" />
-                        </StackPanel>
-                    </Button>
+                    <Grid Width="{x:Bind CardWidth}" Margin="0,0,16,16">
+                        <Button
+                            Height="148"
+                            Click="ToolCard_Click"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Visibility="{x:Bind local:CategoryPage.StandardCardVisibility(IsConverter, IsKubernetesCalculator), Mode=OneWay}">
+                            <StackPanel Spacing="8">
+                                <TextBlock
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    Text="{x:Bind Title}" />
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{x:Bind Description}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Button>
+                            <Button
+                                Width="32"
+                                Height="32"
+                                Margin="0,8,8,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Click="InfoButton_Click"
+                                Padding="0"
+                                ToolTipService.ToolTip="Show tool information"
+                                AutomationProperties.Name="Show tool information"
+                                Visibility="{x:Bind local:CategoryPage.StandardCardVisibility(IsConverter, IsKubernetesCalculator), Mode=OneWay}">
+                                <SymbolIcon Symbol="Help" />
+                            </Button>
+
+                        <Border
+                            MinHeight="180"
+                            Padding="20"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Visibility="{x:Bind local:CategoryPage.ConverterVisibility(IsConverter), Mode=OneWay}">
+                            <StackPanel Spacing="14">
+                                <StackPanel Spacing="4">
+                                    <TextBlock
+                                        FontSize="20"
+                                        FontWeight="SemiBold"
+                                        Text="{x:Bind Title}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="{x:Bind Description}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                                <Grid ColumnSpacing="12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontWeight="SemiBold"
+                                        Text="{x:Bind SourceFormat, Mode=OneWay}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        Width="36"
+                                        Height="36"
+                                        Click="ExchangeFormats_Click"
+                                        Padding="0"
+                                        ToolTipService.ToolTip="Exchange formats"
+                                        AutomationProperties.Name="Exchange formats">
+                                        <SymbolIcon Symbol="Sync" />
+                                    </Button>
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontWeight="SemiBold"
+                                        Text="{x:Bind TargetFormat, Mode=OneWay}" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                        <Border
+                            Padding="20"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Visibility="{x:Bind local:CategoryPage.KubernetesVisibility(IsKubernetesCalculator), Mode=OneWay}">
+                            <StackPanel Spacing="14">
+                                <StackPanel Spacing="4">
+                                    <TextBlock
+                                        FontSize="20"
+                                        FontWeight="SemiBold"
+                                        Text="{x:Bind Title}" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="{x:Bind Description}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                                <ItemsControl ItemsSource="{x:Bind SubCards}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="local:ToolSubCard">
+                                            <Border
+                                                Width="300"
+                                                MinHeight="100"
+                                                Margin="0,0,10,10"
+                                                Padding="12"
+                                                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="6">
+                                                <StackPanel Spacing="6">
+                                                    <TextBlock
+                                                        FontWeight="SemiBold"
+                                                        Text="{x:Bind Title}" />
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Text="{x:Bind Description}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Margin="0,8,8,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Click="InfoButton_Click"
+                            Padding="0"
+                            ToolTipService.ToolTip="Show tool information"
+                            AutomationProperties.Name="Show tool information"
+                            Visibility="{x:Bind local:CategoryPage.KubernetesVisibility(IsKubernetesCalculator), Mode=OneWay}">
+                            <SymbolIcon Symbol="Help" />
+                        </Button>
+                        <Button
+                            Width="32"
+                            Height="32"
+                            Margin="0,8,8,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Click="InfoButton_Click"
+                            Padding="0"
+                            ToolTipService.ToolTip="Show tool information"
+                            AutomationProperties.Name="Show tool information"
+                            Visibility="{x:Bind local:CategoryPage.ConverterVisibility(IsConverter), Mode=OneWay}">
+                            <SymbolIcon Symbol="Help" />
+                        </Button>
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
