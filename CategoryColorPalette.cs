@@ -12,6 +12,7 @@ public static class CategoryColorPalette
         "Utility" => Color.FromArgb(255, 192, 87, 128),
         "Education" => Color.FromArgb(255, 98, 134, 108),
         "Technology" => Color.FromArgb(255, 177, 168, 134),
+        "Generic" => Color.FromArgb(255, 92, 104, 120),
         _ => Color.FromArgb(255, 128, 0, 32)
     };
 

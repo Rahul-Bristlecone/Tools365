@@ -8,7 +8,7 @@ namespace Tools365.Technology;
 
 public sealed partial class KubernetesResourceCalculatorWindow : Window
 {
-    private static readonly IReadOnlyList<InstanceFamily> InstanceCatalog = LoadInstanceCatalog();
+    private static readonly IReadOnlyDictionary<string, RecommendedInstance[]> InstancesByCategory = LoadInstancesByCategory();
 
     public KubernetesResourceCalculatorWindow()
     {
@@ -129,7 +129,7 @@ public sealed partial class KubernetesResourceCalculatorWindow : Window
 
     private static double RoundUpTo(double value, double increment) => Math.Ceiling(value / increment) * increment;
 
-    private static InstanceType SelectInstance(double bufferedCpu, double bufferedMemory)
+    private static RecommendedInstance SelectInstance(double bufferedCpu, double bufferedMemory)
     {
         var memoryPerVcpu = bufferedMemory / bufferedCpu;
         var preferredCategory = bufferedCpu <= 2 && bufferedMemory <= 4
@@ -139,25 +139,35 @@ public sealed partial class KubernetesResourceCalculatorWindow : Window
                 : memoryPerVcpu <= 3
                     ? "compute-optimized"
                     : "general-purpose";
-        var candidates = InstanceCatalog
-            .Where(family => family.Category == preferredCategory)
-            .SelectMany(family => family.Instances.Select(instance => instance with { Category = family.Category }))
-            .OrderBy(instance => instance.Vcpu)
-            .ThenBy(instance => instance.MemoryGiB)
-            .ToArray();
-        var selected = candidates.FirstOrDefault(instance => instance.Vcpu >= bufferedCpu && instance.MemoryGiB >= bufferedMemory);
+        var candidates = InstancesByCategory[preferredCategory];
+        foreach (var candidate in candidates)
+        {
+            if (candidate.Vcpu >= bufferedCpu && candidate.MemoryGiB >= bufferedMemory)
+            {
+                return candidate;
+            }
+        }
 
-        return selected ?? candidates.Last();
+        return candidates[^1];
     }
 
-    private static IReadOnlyList<InstanceFamily> LoadInstanceCatalog()
+    private static IReadOnlyDictionary<string, RecommendedInstance[]> LoadInstancesByCategory()
     {
         var catalogPath = Path.Combine(AppContext.BaseDirectory, "Technology", "AwsInstanceCatalog.json");
         var catalogJson = File.ReadAllText(catalogPath);
-        return JsonSerializer.Deserialize<List<InstanceFamily>>(catalogJson, new JsonSerializerOptions
+        var families = JsonSerializer.Deserialize<List<InstanceFamily>>(catalogJson, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         }) ?? [];
+
+        return families.ToDictionary(
+            family => family.Category,
+            family => family.Instances
+                .Select(instance => new RecommendedInstance(instance.Type, instance.Vcpu, instance.MemoryGiB, family.Category))
+                .OrderBy(instance => instance.Vcpu)
+                .ThenBy(instance => instance.MemoryGiB)
+                .ToArray(),
+            StringComparer.Ordinal);
     }
 
     private static string FormatMemory(double memoryMiB) => memoryMiB >= 1024
@@ -174,8 +184,7 @@ public sealed partial class KubernetesResourceCalculatorWindow : Window
 
     private sealed record InstanceFamily(string Family, string Category, IReadOnlyList<InstanceType> Instances);
 
-    private sealed record InstanceType(string Type, double Vcpu, double MemoryGiB)
-    {
-        public string Category { get; init; } = string.Empty;
-    }
+    private sealed record InstanceType(string Type, double Vcpu, double MemoryGiB);
+
+    private sealed record RecommendedInstance(string Type, double Vcpu, double MemoryGiB, string Category);
 }
