@@ -2,6 +2,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Media;
 using Tools365.Pages;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -77,8 +78,10 @@ public sealed partial class MainWindow : Window
     private void SetNavigationButtonVisual(ToggleButton button, bool isActive, bool isHovered)
     {
         button.Background = isActive
-                ? GetNavigationBrush(isHovered ? "NavigationPillActiveHoverBrush" : "NavigationPillActiveBrush")
-                : GetNavigationBrush(isHovered ? "NavigationPillInactiveHoverBrush" : "NavigationPillInactiveBrush");
+                ? new SolidColorBrush(CategoryColorPalette.Lighten(CategoryColorPalette.GetColor(button.Tag as string ?? string.Empty), isHovered ? 0.15 : 0))
+                : isHovered
+                    ? new SolidColorBrush(CategoryColorPalette.Lighten(CategoryColorPalette.GetColor(button.Tag as string ?? string.Empty), 0.78))
+                    : GetNavigationBrush("NavigationPillInactiveBrush");
             button.Foreground = isActive
                 ? GetNavigationBrush("NavigationPillActiveForegroundBrush")
                 : GetNavigationBrush("NavigationPillInactiveForegroundBrush");

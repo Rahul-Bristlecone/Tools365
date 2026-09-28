@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using System.Collections.ObjectModel;
 using Tools365.Education;
 using Tools365.Family;
@@ -17,6 +18,7 @@ public sealed partial class CategoryPage : Page
     private BmiCalculatorWindow? _bmiWindow;
     private KubernetesResourceCalculatorWindow? _kubernetesCalculatorWindow;
     private readonly List<PinnedToolWidgetWindow> _pinnedWidgets = new();
+    private string _activeCategory = "Family";
 
     public CategoryPage()
     {
@@ -27,7 +29,9 @@ public sealed partial class CategoryPage : Page
     {
         base.OnNavigatedTo(e);
         var category = e.Parameter as string ?? string.Empty;
+        _activeCategory = category;
         CategoryTitle.Text = category;
+        SetCategoryCardColors(category);
         Cards.Clear();
 
         foreach (var card in GetCards(category))
@@ -56,6 +60,23 @@ public sealed partial class CategoryPage : Page
     {
         _kubernetesCalculatorWindow ??= new KubernetesResourceCalculatorWindow();
         _kubernetesCalculatorWindow.Activate();
+    }
+
+    private void ToolCard_PointerEntered(object sender, PointerRoutedEventArgs e)
+    {
+        if (sender is Border border)
+        {
+            border.Background = new SolidColorBrush(CategoryColorPalette.Lighten(CategoryColorPalette.GetColor(_activeCategory), 0.78));
+        }
+    }
+
+    private void ToolCard_PointerExited(object sender, PointerRoutedEventArgs e)
+    {
+        if (sender is Border border)
+        {
+            var lightness = border.Tag as string == "SubCard" ? 0.9 : 0.82;
+            border.Background = new SolidColorBrush(CategoryColorPalette.Lighten(CategoryColorPalette.GetColor(_activeCategory), lightness));
+        }
     }
 
     private void ExchangeFormats_Click(object sender, RoutedEventArgs e)
@@ -105,6 +126,15 @@ public sealed partial class CategoryPage : Page
 
     public static Visibility KubernetesVisibility(bool isKubernetesCalculator) =>
         isKubernetesCalculator ? Visibility.Visible : Visibility.Collapsed;
+
+    private void SetCategoryCardColors(string category)
+    {
+        var color = CategoryColorPalette.GetColor(category);
+        ((SolidColorBrush)Resources["CategoryCardBackgroundBrush"]).Color = CategoryColorPalette.Lighten(color, 0.82);
+        ((SolidColorBrush)Resources["CategorySubCardBackgroundBrush"]).Color = CategoryColorPalette.Lighten(color, 0.9);
+        ((SolidColorBrush)Resources["CategoryCardAccentBrush"]).Color = color;
+        ((SolidColorBrush)Resources["CategoryCardAccentDepthBrush"]).Color = CategoryColorPalette.Darken(color, 0.18);
+    }
 
     private static IReadOnlyList<ToolCard> GetCards(string category)
     {
