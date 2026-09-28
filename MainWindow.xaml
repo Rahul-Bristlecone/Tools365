@@ -81,9 +81,10 @@
         <Border
             x:Name="NavigationCapsule"
             Grid.Row="1"
-            Margin="160,12,160,0"
-            Height="52"
+            Margin="32,12,32,0"
+            Height="56"
             HorizontalAlignment="Stretch"
+            MaxWidth="980"
             VerticalAlignment="Top"
             Background="{StaticResource NavigationCapsuleAcrylicBrush}"
             BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
@@ -91,9 +92,10 @@
             Padding="4,4,4,4"
             Shadow="{StaticResource NavigationCapsuleShadow}"
             Translation="0,0,32"
-            CornerRadius="8">
+            CornerRadius="4">
             <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -104,6 +106,7 @@
                 <ToggleButton
                     x:Name="FamilyButton"
                     Click="CategoryButton_Click"
+                    CornerRadius="4"
                     Content="Family"
                     IsChecked="True"
                     PointerEntered="CategoryButton_PointerEntered"
@@ -114,6 +117,7 @@
                     x:Name="HealthButton"
                     Grid.Column="1"
                     Click="CategoryButton_Click"
+                    CornerRadius="4"
                     Content="Health"
                     PointerEntered="CategoryButton_PointerEntered"
                     PointerExited="CategoryButton_PointerExited"
@@ -123,6 +127,7 @@
                     x:Name="FinanceButton"
                     Grid.Column="2"
                     Click="CategoryButton_Click"
+                    CornerRadius="4"
                     Content="Finance"
                     PointerEntered="CategoryButton_PointerEntered"
                     PointerExited="CategoryButton_PointerExited"
@@ -132,6 +137,7 @@
                     x:Name="UtilityButton"
                     Grid.Column="3"
                     Click="CategoryButton_Click"
+                    CornerRadius="4"
                     Content="Utility"
                     PointerEntered="CategoryButton_PointerEntered"
                     PointerExited="CategoryButton_PointerExited"
@@ -141,6 +147,7 @@
                     x:Name="EducationButton"
                     Grid.Column="4"
                     Click="CategoryButton_Click"
+                    CornerRadius="4"
                     Content="Education"
                     PointerEntered="CategoryButton_PointerEntered"
                     PointerExited="CategoryButton_PointerExited"
@@ -150,11 +157,22 @@
                     x:Name="TechnologyButton"
                     Grid.Column="5"
                     Click="CategoryButton_Click"
+                    CornerRadius="4"
                     Content="Technology"
                     PointerEntered="CategoryButton_PointerEntered"
                     PointerExited="CategoryButton_PointerExited"
                     Style="{StaticResource NavigationPillStyle}"
                     Tag="Technology" />
+                <ToggleButton
+                    x:Name="GenericButton"
+                    Grid.Column="6"
+                    Click="CategoryButton_Click"
+                    CornerRadius="4"
+                    Content="Generic"
+                    PointerEntered="CategoryButton_PointerEntered"
+                    PointerExited="CategoryButton_PointerExited"
+                    Style="{StaticResource NavigationPillStyle}"
+                    Tag="Generic" />
             </Grid>
         </Border>
         <Frame

@@ -12,9 +12,12 @@ namespace Tools365;
 
 public sealed partial class MainWindow : Window
 {
+    private readonly Dictionary<string, NavigationBrushSet> _navigationBrushes = new();
+
     public MainWindow()
     {
         InitializeComponent();
+        InitializeNavigationBrushes();
 
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
@@ -64,7 +67,8 @@ public sealed partial class MainWindow : Window
             FinanceButton,
             UtilityButton,
             EducationButton,
-            TechnologyButton
+            TechnologyButton,
+            GenericButton
         };
 
         foreach (var button in buttons)
@@ -77,10 +81,11 @@ public sealed partial class MainWindow : Window
 
     private void SetNavigationButtonVisual(ToggleButton button, bool isActive, bool isHovered)
     {
+        var brushSet = _navigationBrushes[button.Tag as string ?? string.Empty];
         button.Background = isActive
-                ? new SolidColorBrush(CategoryColorPalette.Lighten(CategoryColorPalette.GetColor(button.Tag as string ?? string.Empty), isHovered ? 0.15 : 0))
+                ? isHovered ? brushSet.ActiveHover : brushSet.Active
                 : isHovered
-                    ? new SolidColorBrush(CategoryColorPalette.Lighten(CategoryColorPalette.GetColor(button.Tag as string ?? string.Empty), 0.78))
+                    ? brushSet.InactiveHover
                     : GetNavigationBrush("NavigationPillInactiveBrush");
             button.Foreground = isActive
                 ? GetNavigationBrush("NavigationPillActiveForegroundBrush")
@@ -91,4 +96,21 @@ public sealed partial class MainWindow : Window
     {
         return (Microsoft.UI.Xaml.Media.Brush)RootGrid.Resources[key];
     }
+
+    private void InitializeNavigationBrushes()
+    {
+        foreach (var category in new[] { "Family", "Health", "Finance", "Utility", "Education", "Technology", "Generic" })
+        {
+            var color = CategoryColorPalette.GetColor(category);
+            _navigationBrushes[category] = new NavigationBrushSet(
+                new SolidColorBrush(color),
+                new SolidColorBrush(CategoryColorPalette.Lighten(color, 0.15)),
+                new SolidColorBrush(CategoryColorPalette.Lighten(color, 0.78)));
+        }
+    }
+
+    private sealed record NavigationBrushSet(
+        SolidColorBrush Active,
+        SolidColorBrush ActiveHover,
+        SolidColorBrush InactiveHover);
 }

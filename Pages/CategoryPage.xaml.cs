@@ -66,7 +66,7 @@ public sealed partial class CategoryPage : Page
     {
         if (sender is Border border)
         {
-            border.Background = new SolidColorBrush(CategoryColorPalette.Lighten(CategoryColorPalette.GetColor(_activeCategory), 0.78));
+            border.Background = (SolidColorBrush)Resources["CategoryCardHoverBrush"];
         }
     }
 
@@ -74,8 +74,9 @@ public sealed partial class CategoryPage : Page
     {
         if (sender is Border border)
         {
-            var lightness = border.Tag as string == "SubCard" ? 0.9 : 0.82;
-            border.Background = new SolidColorBrush(CategoryColorPalette.Lighten(CategoryColorPalette.GetColor(_activeCategory), lightness));
+            border.Background = (SolidColorBrush)Resources[border.Tag as string == "SubCard"
+                ? "CategorySubCardBackgroundBrush"
+                : "CategoryCardBackgroundBrush"];
         }
     }
 
@@ -132,6 +133,7 @@ public sealed partial class CategoryPage : Page
         var color = CategoryColorPalette.GetColor(category);
         ((SolidColorBrush)Resources["CategoryCardBackgroundBrush"]).Color = CategoryColorPalette.Lighten(color, 0.82);
         ((SolidColorBrush)Resources["CategorySubCardBackgroundBrush"]).Color = CategoryColorPalette.Lighten(color, 0.9);
+        ((SolidColorBrush)Resources["CategoryCardHoverBrush"]).Color = CategoryColorPalette.Lighten(color, 0.78);
         ((SolidColorBrush)Resources["CategoryCardAccentBrush"]).Color = color;
         ((SolidColorBrush)Resources["CategoryCardAccentDepthBrush"]).Color = CategoryColorPalette.Darken(color, 0.18);
     }

@@ -11,6 +11,7 @@
     <Page.Resources>
         <SolidColorBrush x:Key="CategoryCardBackgroundBrush" Color="#EAF1F4" />
         <SolidColorBrush x:Key="CategorySubCardBackgroundBrush" Color="#F5F8F9" />
+        <SolidColorBrush x:Key="CategoryCardHoverBrush" Color="#E6EEF1" />
         <SolidColorBrush x:Key="CategoryCardAccentBrush" Color="#286076" />
         <SolidColorBrush x:Key="CategoryCardAccentDepthBrush" Color="#20505F" />
         <Style x:Key="CategoryCardButtonStyle" TargetType="Button">
