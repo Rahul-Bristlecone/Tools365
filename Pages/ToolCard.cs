@@ -31,6 +31,13 @@ public sealed class ToolCard : INotifyPropertyChanged
 
     public double CardWidth => IsKubernetesCalculator ? 680 : 320;
 
+    public double TitleFontSize => Title.Length switch
+    {
+        <= 18 => 18,
+        <= 28 => 14,
+        _ => 11
+    };
+
     public string SourceFormat { get; private set; } = "YAML";
 
     public string TargetFormat { get; private set; } = "JSON";
