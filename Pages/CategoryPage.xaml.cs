@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 using System.Collections.ObjectModel;
 using Tools365.Education;
 using Tools365.Family;
@@ -14,6 +15,8 @@ public sealed partial class CategoryPage : Page
 {
     public ObservableCollection<ToolCard> Cards { get; } = new();
     private BmiCalculatorWindow? _bmiWindow;
+    private KubernetesResourceCalculatorWindow? _kubernetesCalculatorWindow;
+    private readonly List<PinnedToolWidgetWindow> _pinnedWidgets = new();
 
     public CategoryPage()
     {
@@ -37,11 +40,22 @@ public sealed partial class CategoryPage : Page
 
     private void ToolCard_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is Button { DataContext: ToolCard { Title: "BMI calculator" } })
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "BMI calculator" } })
         {
             _bmiWindow ??= new BmiCalculatorWindow();
             _bmiWindow.Activate();
         }
+    }
+
+    private void ToolCard_Tapped(object sender, TappedRoutedEventArgs e)
+    {
+        ToolCard_Click(sender, e);
+    }
+
+    private void KubernetesCard_Tapped(object sender, TappedRoutedEventArgs e)
+    {
+        _kubernetesCalculatorWindow ??= new KubernetesResourceCalculatorWindow();
+        _kubernetesCalculatorWindow.Activate();
     }
 
     private void ExchangeFormats_Click(object sender, RoutedEventArgs e)
@@ -50,6 +64,19 @@ public sealed partial class CategoryPage : Page
         {
             card.SwapFormats();
         }
+    }
+
+    private void PinButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { DataContext: ToolCard card })
+        {
+            return;
+        }
+
+        var widget = new PinnedToolWidgetWindow(card);
+        _pinnedWidgets.Add(widget);
+        widget.Closed += (_, _) => _pinnedWidgets.Remove(widget);
+        widget.Activate();
     }
 
     private async void InfoButton_Click(object sender, RoutedEventArgs e)

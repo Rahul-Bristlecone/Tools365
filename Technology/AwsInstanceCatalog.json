@@ -1,0 +1,43 @@
+[
+  {
+    "family": "t3",
+    "category": "burstable",
+    "instances": [
+      { "type": "t3.micro", "vcpu": 2, "memoryGiB": 1 },
+      { "type": "t3.small", "vcpu": 2, "memoryGiB": 2 },
+      { "type": "t3.medium", "vcpu": 2, "memoryGiB": 4 },
+      { "type": "t3.large", "vcpu": 2, "memoryGiB": 8 },
+      { "type": "t3.xlarge", "vcpu": 4, "memoryGiB": 16 }
+    ]
+  },
+  {
+    "family": "m6i",
+    "category": "general-purpose",
+    "instances": [
+      { "type": "m6i.large", "vcpu": 2, "memoryGiB": 8 },
+      { "type": "m6i.xlarge", "vcpu": 4, "memoryGiB": 16 },
+      { "type": "m6i.2xlarge", "vcpu": 8, "memoryGiB": 32 },
+      { "type": "m6i.4xlarge", "vcpu": 16, "memoryGiB": 64 }
+    ]
+  },
+  {
+    "family": "c6i",
+    "category": "compute-optimized",
+    "instances": [
+      { "type": "c6i.large", "vcpu": 2, "memoryGiB": 4 },
+      { "type": "c6i.xlarge", "vcpu": 4, "memoryGiB": 8 },
+      { "type": "c6i.2xlarge", "vcpu": 8, "memoryGiB": 16 },
+      { "type": "c6i.4xlarge", "vcpu": 16, "memoryGiB": 32 }
+    ]
+  },
+  {
+    "family": "r6i",
+    "category": "memory-optimized",
+    "instances": [
+      { "type": "r6i.large", "vcpu": 2, "memoryGiB": 16 },
+      { "type": "r6i.xlarge", "vcpu": 4, "memoryGiB": 32 },
+      { "type": "r6i.2xlarge", "vcpu": 8, "memoryGiB": 64 },
+      { "type": "r6i.4xlarge", "vcpu": 16, "memoryGiB": 128 }
+    ]
+  }
+]

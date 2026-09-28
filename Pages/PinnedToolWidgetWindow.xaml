@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Pages.PinnedToolWidgetWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Tools365 widget">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Border
+        Padding="16"
+        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="8">
+        <Grid RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                x:Name="TitleText"
+                FontSize="20"
+                FontWeight="SemiBold"
+                TextWrapping="Wrap" />
+            <TextBlock
+                x:Name="DescriptionText"
+                Grid.Row="1"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                TextWrapping="Wrap" />
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Left"
+                Click="UnpinButton_Click"
+                Content="Unpin from desktop"
+                ToolTipService.ToolTip="Remove this widget from the desktop"
+                AutomationProperties.Name="Unpin from desktop" />
+        </Grid>
+    </Border>
+</Window>
