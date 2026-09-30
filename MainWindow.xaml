@@ -164,15 +164,15 @@
                     Style="{StaticResource NavigationPillStyle}"
                     Tag="Technology" />
                 <ToggleButton
-                    x:Name="GenericButton"
+                    x:Name="BusinessButton"
                     Grid.Column="6"
                     Click="CategoryButton_Click"
                     CornerRadius="4"
-                    Content="Generic"
+                    Content="Business"
                     PointerEntered="CategoryButton_PointerEntered"
                     PointerExited="CategoryButton_PointerExited"
                     Style="{StaticResource NavigationPillStyle}"
-                    Tag="Generic" />
+                    Tag="Business" />
             </Grid>
         </Border>
         <Frame

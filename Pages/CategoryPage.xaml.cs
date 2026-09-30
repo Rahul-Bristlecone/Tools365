@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using System.Collections.ObjectModel;
 using Tools365.Education;
+using Tools365.Business;
 using Tools365.Family;
 using Tools365.Finance;
 using Tools365.Health;
@@ -30,7 +31,6 @@ public sealed partial class CategoryPage : Page
         base.OnNavigatedTo(e);
         var category = e.Parameter as string ?? string.Empty;
         _activeCategory = category;
-        CategoryTitle.Text = category;
         SetCategoryCardColors(category);
         Cards.Clear();
 
@@ -148,6 +148,7 @@ public sealed partial class CategoryPage : Page
             "Utility" => UtilityToolCatalog.GetCards(),
             "Education" => EducationToolCatalog.GetCards(),
             "Technology" => TechnologyToolCatalog.GetCards(),
+            "Business" => BusinessToolCatalog.GetCards(),
             _ => Array.Empty<ToolCard>()
         };
     }
