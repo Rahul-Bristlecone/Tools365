@@ -11,6 +11,8 @@ public static class FamilyToolCatalog
         new ToolCard("Cooking randomiser", "Pick a random cooking idea."),
         new ToolCard("Room area & volume calculator", "Calculate the area and volume of a room."),
         new ToolCard("Trip Packing checklist", "Organise the items you need for a trip."),
-        new ToolCard("Solar panel output estimator", "Estimate energy output from solar panels.")
+        new ToolCard("Solar panel output estimator", "Estimate energy output from solar panels."),
+        new ToolCard("Nakshatra calculator", "Calculate your Nakshatra."),
+        new ToolCard("Vikram Samvat converter", "Convert dates to and from Vikram Samvat.")
     };
 }

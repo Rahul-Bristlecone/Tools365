@@ -10,6 +10,7 @@ public static class TechnologyToolCatalog
         {
             new ToolCard("YAML / JSON converter", "Convert between YAML and JSON formats.", isConverter: true),
             new ToolCard("Cron expression generator", "Build and understand cron scheduling expressions."),
+            new ToolCard("DB connection string generator", "Build database connection strings from common settings."),
             new ToolCard(
                 "Kubernetes Resource Calculator",
                 "Estimate pod resources, cluster capacity, scaling, and EKS cost.",

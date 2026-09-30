@@ -68,7 +68,7 @@ public sealed partial class MainWindow : Window
             UtilityButton,
             EducationButton,
             TechnologyButton,
-            GenericButton
+            BusinessButton
         };
 
         foreach (var button in buttons)
@@ -99,7 +99,7 @@ public sealed partial class MainWindow : Window
 
     private void InitializeNavigationBrushes()
     {
-        foreach (var category in new[] { "Family", "Health", "Finance", "Utility", "Education", "Technology", "Generic" })
+        foreach (var category in new[] { "Family", "Health", "Finance", "Utility", "Education", "Technology", "Business" })
         {
             var color = CategoryColorPalette.GetColor(category);
             _navigationBrushes[category] = new NavigationBrushSet(
