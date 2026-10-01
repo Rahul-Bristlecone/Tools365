@@ -153,7 +153,7 @@ public sealed partial class KubernetesResourceCalculatorWindow : Window
 
     private static IReadOnlyDictionary<string, RecommendedInstance[]> LoadInstancesByCategory()
     {
-        var catalogPath = Path.Combine(AppContext.BaseDirectory, "Technology", "AwsInstanceCatalog.json");
+        var catalogPath = Path.Combine(AppContext.BaseDirectory, "Technology", "KubernetesResourceCalculator", "AwsInstanceCatalog.json");
         var catalogJson = File.ReadAllText(catalogPath);
         var families = JsonSerializer.Deserialize<List<InstanceFamily>>(catalogJson, new JsonSerializerOptions
         {

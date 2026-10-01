@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using Tools365.Education;
 using Tools365.Business;
 using Tools365.Family;
+using Tools365.Family.ElectricityCostEstimator;
 using Tools365.Finance;
 using Tools365.Health;
 using Tools365.Technology;
@@ -17,6 +18,7 @@ public sealed partial class CategoryPage : Page
 {
     public ObservableCollection<ToolCard> Cards { get; } = new();
     private BmiCalculatorWindow? _bmiWindow;
+    private ElectricityCostEstimatorWindow? _electricityCostEstimatorWindow;
     private KubernetesResourceCalculatorWindow? _kubernetesCalculatorWindow;
     private readonly List<PinnedToolWidgetWindow> _pinnedWidgets = new();
     private string _activeCategory = "Family";
@@ -48,6 +50,11 @@ public sealed partial class CategoryPage : Page
         {
             _bmiWindow ??= new BmiCalculatorWindow();
             _bmiWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Electricity cost estimator" } })
+        {
+            _electricityCostEstimatorWindow ??= new ElectricityCostEstimatorWindow();
+            _electricityCostEstimatorWindow.Activate();
         }
     }
 
