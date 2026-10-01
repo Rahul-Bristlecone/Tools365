@@ -1,0 +1,37 @@
+{
+  "cities": [
+    {
+      "name": "Delhi",
+      "energySlabs": [
+        {
+          "upToUnits": 200,
+          "ratePerUnit": 3.0
+        },
+        {
+          "upToUnits": 400,
+          "ratePerUnit": 4.5
+        },
+        {
+          "ratePerUnit": 6.5
+        }
+      ],
+      "fixedCharge": 20.0,
+      "ppacPercent": 16.0,
+      "electricityDutyPercent": 5.0,
+      "subsidyRules": [
+        {
+          "upToUnits": 200,
+          "type": "GrossBill"
+        },
+        {
+          "upToUnits": 400,
+          "type": "FixedAmount",
+          "amount": 300.0
+        },
+        {
+          "type": "None"
+        }
+      ]
+    }
+  ]
+}
