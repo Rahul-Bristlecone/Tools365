@@ -116,11 +116,21 @@ public sealed partial class BmiCalculatorWindow : Window
             }
         }
 
-        if (!weightKilograms.HasValue || !heightCentimeters.HasValue || heightCentimeters <= 0)
+        if (!weightKilograms.HasValue || !heightCentimeters.HasValue)
         {
             ShowNotification(
                 "Enter a weight and height",
                 "Provide kilograms or pounds, and centimeters or feet/inches.",
+                InfoBarSeverity.Warning);
+            return;
+        }
+
+        if (!double.IsFinite(weightKilograms.Value) || weightKilograms.Value <= 0 ||
+            !double.IsFinite(heightCentimeters.Value) || heightCentimeters.Value <= 0)
+        {
+            ShowNotification(
+                "Enter valid measurements",
+                "Weight and height must be positive numbers.",
                 InfoBarSeverity.Warning);
             return;
         }

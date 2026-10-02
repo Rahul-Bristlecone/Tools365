@@ -41,7 +41,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Spacing="6">
-                        <TextBlock Text="Region" />
+                            <TextBlock Text="Region" />
                         <ComboBox x:Name="RegionComboBox" Width="180" DisplayMemberPath="Name" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Spacing="6">
@@ -100,26 +100,27 @@
                                     Grid.Column="1"
                                     Width="80"
                                     Minimum="1"
-                                    Value="{Binding Quantity, Mode=TwoWay}"
+                                    Value="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SpinButtonPlacementMode="Hidden" />
+                                <NumberBox
+                                    Grid.Column="2"
+                                    Minimum="0"
+                                    PlaceholderText="e.g. 75"
+                                    Tag="Watts"
+                                    Value="{Binding Watts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SpinButtonPlacementMode="Hidden"
-                                    ValueChanged="ApplianceInput_ValueChanged" />
+                                    Loaded="ApplianceInput_Loaded" />
                                 <NumberBox
                                     Grid.Column="3"
                                     Minimum="0"
-                                    PlaceholderText="e.g. 75"
-                                    Value="{Binding Watts, Mode=TwoWay}"
-                                    SpinButtonPlacementMode="Hidden"
-                                    ValueChanged="ApplianceInput_ValueChanged" />
-                                <NumberBox
-                                    Grid.Column="4"
-                                    Minimum="0"
                                     Maximum="24"
                                     PlaceholderText="e.g. 8"
-                                    Value="{Binding HoursPerDay, Mode=TwoWay}"
+                                    Tag="HoursPerDay"
+                                    Value="{Binding HoursPerDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SpinButtonPlacementMode="Hidden"
-                                    ValueChanged="ApplianceInput_ValueChanged" />
+                                    Loaded="ApplianceInput_Loaded" />
                                 <Button
-                                    Grid.Column="6"
+                                    Grid.Column="4"
                                     VerticalAlignment="Center"
                                     Click="RemoveApplianceButton_Click">
                                     <SymbolIcon Symbol="Delete" />
@@ -130,17 +131,17 @@
                 </ItemsControl>
                 <Button
                     x:Name="AddApplianceButton"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Right"
                     Click="AddApplianceButton_Click"
                     Content="Add appliance"
-                    IsEnabled="False" />
+                    IsEnabled="True" />
             </StackPanel>
 
             <Button
                 Grid.Row="2"
                 Background="#286076"
                 Foreground="White"
-                HorizontalAlignment="Left"
+                    HorizontalAlignment="Right"
                 Click="CalculateButton_Click"
                 Content="Calculate estimate" />
 
