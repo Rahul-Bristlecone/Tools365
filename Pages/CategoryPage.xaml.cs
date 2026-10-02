@@ -11,6 +11,7 @@ using Tools365.Finance;
 using Tools365.Health;
 using Tools365.Technology;
 using Tools365.Utility;
+using Tools365.Utility.AgeCalculator;
 
 namespace Tools365.Pages;
 
@@ -18,6 +19,7 @@ public sealed partial class CategoryPage : Page
 {
     public ObservableCollection<ToolCard> Cards { get; } = new();
     private BmiCalculatorWindow? _bmiWindow;
+    private AgeCalculatorWindow? _ageCalculatorWindow;
     private ElectricityCostEstimatorWindow? _electricityCostEstimatorWindow;
     private KubernetesResourceCalculatorWindow? _kubernetesCalculatorWindow;
     private readonly List<PinnedToolWidgetWindow> _pinnedWidgets = new();
@@ -48,15 +50,44 @@ public sealed partial class CategoryPage : Page
     {
         if (sender is FrameworkElement { DataContext: ToolCard { Title: "BMI calculator" } })
         {
-            _bmiWindow ??= new BmiCalculatorWindow();
+            if (_bmiWindow is null)
+            {
+                _bmiWindow = new BmiCalculatorWindow();
+                _bmiWindow.Closed += BmiWindow_Closed;
+            }
+
             _bmiWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Age calculator" } })
+        {
+            if (_ageCalculatorWindow is null)
+            {
+                _ageCalculatorWindow = new AgeCalculatorWindow();
+                _ageCalculatorWindow.Closed += AgeCalculatorWindow_Closed;
+            }
+
+            _ageCalculatorWindow.Activate();
         }
         else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Electricity cost estimator" } })
         {
-            _electricityCostEstimatorWindow ??= new ElectricityCostEstimatorWindow();
+            if (_electricityCostEstimatorWindow is null)
+            {
+                _electricityCostEstimatorWindow = new ElectricityCostEstimatorWindow();
+                _electricityCostEstimatorWindow.Closed += ElectricityCostEstimatorWindow_Closed;
+            }
+
             _electricityCostEstimatorWindow.Activate();
         }
     }
+
+    private void BmiWindow_Closed(object sender, WindowEventArgs e) =>
+        _bmiWindow = null;
+
+    private void AgeCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _ageCalculatorWindow = null;
+
+    private void ElectricityCostEstimatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _electricityCostEstimatorWindow = null;
 
     private void ToolCard_Tapped(object sender, TappedRoutedEventArgs e)
     {

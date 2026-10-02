@@ -78,16 +78,19 @@ public sealed partial class ElectricityCostEstimatorWindow : Window
 
     private void AddApplianceButton_Click(object sender, RoutedEventArgs e)
     {
-        if (AddApplianceButton.IsEnabled)
+        ValidationBar.IsOpen = false;
+        if (!TryCalculateMonthlyUnits(out _, out var inputError))
         {
-            AddApplianceEntry();
+            ShowValidation(inputError);
+            return;
         }
+
+        AddApplianceEntry();
     }
 
     private void AddApplianceEntry()
     {
         _applianceEntries.Add(new ApplianceEntry());
-        UpdateAddApplianceButtonState();
     }
 
     private void DecreaseQuantityButton_Click(object sender, RoutedEventArgs e) =>
@@ -111,18 +114,41 @@ public sealed partial class ElectricityCostEstimatorWindow : Window
             _applianceEntries.Remove(entry);
         }
 
-        UpdateAddApplianceButtonState();
     }
 
-    private void ApplianceInput_ValueChanged(object sender, NumberBoxValueChangedEventArgs e) =>
-        DispatcherQueue.TryEnqueue(UpdateAddApplianceButtonState);
-
-    private void UpdateAddApplianceButtonState()
+    private void ApplianceInput_Loaded(object sender, RoutedEventArgs e)
     {
-        var lastEntry = _applianceEntries.LastOrDefault();
-        AddApplianceButton.IsEnabled = lastEntry is null ||
-            (TryGetPositiveValue(lastEntry.Watts) &&
-             TryGetPositiveValue(lastEntry.HoursPerDay));
+        if (sender is NumberBox numberBox)
+        {
+            numberBox.RegisterPropertyChangedCallback(NumberBox.TextProperty, ApplianceInput_TextChanged);
+        }
+    }
+
+    private void ApplianceInput_TextChanged(DependencyObject sender, DependencyProperty property)
+    {
+        if (sender is not NumberBox { DataContext: ApplianceEntry entry, Tag: string propertyName } numberBox)
+        {
+            return;
+        }
+
+        var value = double.TryParse(
+            numberBox.Text,
+            NumberStyles.Float | NumberStyles.AllowThousands,
+            CultureInfo.CurrentCulture,
+            out var parsedValue)
+            ? parsedValue
+            : double.NaN;
+
+        switch (propertyName)
+        {
+            case "Watts":
+                entry.Watts = value;
+                break;
+            case "HoursPerDay":
+                entry.HoursPerDay = value;
+                break;
+        }
+
     }
 
     private bool TryCalculateMonthlyUnits(out double unitsConsumed, out string error)
