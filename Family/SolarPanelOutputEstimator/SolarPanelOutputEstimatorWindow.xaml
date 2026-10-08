@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Family.SolarPanelOutputEstimator.SolarPanelOutputEstimatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Solar panel output estimator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto"
+        VerticalScrollMode="Auto"
+        ZoomMode="Disabled">
+        <Grid Padding="16" RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="Solar panel output estimator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Estimate generation, monthly output, and savings from a rooftop solar system."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid ColumnSpacing="16" RowSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="System size (kW)" />
+                        <NumberBox
+                            x:Name="SystemSizeBox"
+                            Minimum="0"
+                            PlaceholderText="e.g. 4.5"
+                            SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Spacing="6">
+                        <TextBlock Text="Daily sunlight (hours/day)" />
+                        <NumberBox
+                            x:Name="SunlightBox"
+                            Minimum="0"
+                            PlaceholderText="e.g. 5.5"
+                            SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Spacing="6">
+                        <TextBlock Text="System losses (%)" />
+                        <NumberBox
+                            x:Name="LossesBox"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="18"
+                            SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Spacing="6">
+                        <TextBlock Text="Electricity rate (₹/kWh)" />
+                        <NumberBox
+                            x:Name="RateBox"
+                            Minimum="0"
+                            PlaceholderText="e.g. 7.5"
+                            SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Click="CalculateButton_Click"
+                Content="Calculate output"
+                Style="{StaticResource AccentButtonStyle}" />
+
+            <InfoBar
+                x:Name="ValidationBar"
+                Grid.Row="3"
+                IsClosable="False"
+                IsOpen="False"
+                Severity="Warning" />
+
+            <Border
+                Grid.Row="4"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock FontSize="18" FontWeight="SemiBold" Text="Estimated generation" />
+                    <Grid ColumnSpacing="16" RowSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Daily output" />
+                        <TextBlock x:Name="DailyOutputText" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="1" Text="Monthly output" />
+                        <TextBlock x:Name="MonthlyOutputText" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="2" Text="Annual output" />
+                        <TextBlock x:Name="AnnualOutputText" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="3" Text="Monthly savings" />
+                        <TextBlock x:Name="MonthlySavingsText" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="4" FontWeight="SemiBold" Text="Annual savings" />
+                        <TextBlock x:Name="AnnualSavingsText" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" FontWeight="SemiBold" Text="-" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>

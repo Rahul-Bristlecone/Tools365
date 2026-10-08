@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Family.VikramSamvatConverter.VikramSamvatConverterWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Vikram Samvat converter">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto"
+        VerticalScrollMode="Auto"
+        ZoomMode="Disabled">
+        <Grid Padding="16" RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="Vikram Samvat converter" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Convert dates between Gregorian calendar and Vikram Samvat."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Conversion direction" />
+                        <ComboBox
+                            x:Name="DirectionComboBox"
+                            Width="260"
+                            SelectionChanged="DirectionComboBox_SelectionChanged" />
+                    </StackPanel>
+
+                    <Grid x:Name="GregorianInputPanel" ColumnSpacing="16" RowSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Gregorian date" />
+                            <DatePicker x:Name="GregorianDatePicker" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid x:Name="VikramInputPanel" ColumnSpacing="16" RowSpacing="12" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.1*" />
+                            <ColumnDefinition Width="1.1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Vikram Samvat year" />
+                            <NumberBox x:Name="VsYearBox" Minimum="1" Value="2081" SpinButtonPlacementMode="Inline" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="6">
+                            <TextBlock Text="Month" />
+                            <ComboBox x:Name="VsMonthComboBox" Width="140" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Spacing="6">
+                            <TextBlock Text="Day" />
+                            <NumberBox x:Name="VsDayBox" Minimum="1" Maximum="30" Value="1" SpinButtonPlacementMode="Inline" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Click="ConvertButton_Click"
+                Content="Convert"
+                Style="{StaticResource AccentButtonStyle}" />
+
+            <InfoBar
+                x:Name="ValidationBar"
+                Grid.Row="3"
+                IsClosable="False"
+                IsOpen="False"
+                Severity="Warning" />
+
+            <Border
+                Grid.Row="4"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock FontSize="18" FontWeight="SemiBold" Text="Converted date" />
+                    <Grid ColumnSpacing="16" RowSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="SourceLabel" Text="Gregorian date" />
+                        <TextBlock x:Name="SourceValueText" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock x:Name="TargetLabel" Grid.Row="1" Text="Vikram Samvat" />
+                        <TextBlock x:Name="TargetValueText" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>
