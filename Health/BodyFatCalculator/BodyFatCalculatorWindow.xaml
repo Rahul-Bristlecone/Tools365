@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Health.BodyFatCalculator.BodyFatCalculatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Body fat calculator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto"
+        VerticalScrollMode="Auto"
+        ZoomMode="Disabled">
+        <Grid Padding="16" RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="Body fat calculator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Estimate body fat percentage using the U.S. Navy formula."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid ColumnSpacing="16" RowSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Gender" />
+                        <ComboBox
+                            x:Name="GenderComboBox"
+                            Width="180"
+                            SelectedIndex="0" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Spacing="6">
+                        <TextBlock Text="Age" />
+                        <NumberBox x:Name="AgeBox" Minimum="1" Value="30" SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Spacing="6">
+                        <TextBlock Text="Weight (kg)" />
+                        <NumberBox x:Name="WeightBox" Minimum="0" PlaceholderText="e.g. 72" SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Spacing="6">
+                        <TextBlock Text="Height (cm)" />
+                        <NumberBox x:Name="HeightBox" Minimum="0" PlaceholderText="e.g. 170" SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Spacing="6">
+                        <TextBlock Text="Waist (cm)" />
+                        <NumberBox x:Name="WaistBox" Minimum="0" PlaceholderText="e.g. 85" SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.Column="1" Spacing="6">
+                        <TextBlock Text="Neck (cm)" />
+                        <NumberBox x:Name="NeckBox" Minimum="0" PlaceholderText="e.g. 38" SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel x:Name="HipPanel" Grid.Row="3" Spacing="6">
+                        <TextBlock Text="Hip (cm)" />
+                        <NumberBox x:Name="HipBox" Minimum="0" PlaceholderText="e.g. 94" SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Click="CalculateButton_Click"
+                Content="Calculate body fat"
+                Style="{StaticResource AccentButtonStyle}" />
+
+            <InfoBar
+                x:Name="ValidationBar"
+                Grid.Row="3"
+                IsClosable="False"
+                IsOpen="False"
+                Severity="Warning" />
+
+            <Border
+                Grid.Row="4"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock FontSize="18" FontWeight="SemiBold" Text="Estimated result" />
+                    <Grid ColumnSpacing="16" RowSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Body fat %" />
+                        <TextBlock x:Name="BodyFatText" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="1" Text="Category" />
+                        <TextBlock x:Name="CategoryText" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="2" FontWeight="SemiBold" Text="Lean mass" />
+                        <TextBlock x:Name="LeanMassText" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" FontWeight="SemiBold" Text="-" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>

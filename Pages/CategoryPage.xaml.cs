@@ -6,9 +6,17 @@ using System.Collections.ObjectModel;
 using Tools365.Education;
 using Tools365.Business;
 using Tools365.Family;
+using Tools365.Family.CookingRandomiser;
 using Tools365.Family.ElectricityCostEstimator;
+using Tools365.Family.FuelCostCalculator;
+using Tools365.Family.NakshatraCalculator;
+using Tools365.Family.RoomAreaVolumeCalculator;
+using Tools365.Family.SolarPanelOutputEstimator;
+using Tools365.Family.TripPackingChecklist;
+using Tools365.Family.VikramSamvatConverter;
 using Tools365.Finance;
 using Tools365.Health;
+using Tools365.Health.BodyFatCalculator;
 using Tools365.Technology;
 using Tools365.Utility;
 using Tools365.Utility.AgeCalculator;
@@ -19,8 +27,16 @@ public sealed partial class CategoryPage : Page
 {
     public ObservableCollection<ToolCard> Cards { get; } = new();
     private BmiCalculatorWindow? _bmiWindow;
+    private BodyFatCalculatorWindow? _bodyFatCalculatorWindow;
     private AgeCalculatorWindow? _ageCalculatorWindow;
     private ElectricityCostEstimatorWindow? _electricityCostEstimatorWindow;
+    private FuelCostCalculatorWindow? _fuelCostCalculatorWindow;
+    private SolarPanelOutputEstimatorWindow? _solarPanelOutputEstimatorWindow;
+    private VikramSamvatConverterWindow? _vikramSamvatConverterWindow;
+    private CookingRandomiserWindow? _cookingRandomiserWindow;
+    private TripPackingChecklistWindow? _tripPackingChecklistWindow;
+    private NakshatraCalculatorWindow? _nakshatraCalculatorWindow;
+    private RoomAreaVolumeCalculatorWindow? _roomAreaVolumeCalculatorWindow;
     private KubernetesResourceCalculatorWindow? _kubernetesCalculatorWindow;
     private readonly List<PinnedToolWidgetWindow> _pinnedWidgets = new();
     private string _activeCategory = "Family";
@@ -58,6 +74,16 @@ public sealed partial class CategoryPage : Page
 
             _bmiWindow.Activate();
         }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Body Fat calculator" } })
+        {
+            if (_bodyFatCalculatorWindow is null)
+            {
+                _bodyFatCalculatorWindow = new BodyFatCalculatorWindow();
+                _bodyFatCalculatorWindow.Closed += BodyFatCalculatorWindow_Closed;
+            }
+
+            _bodyFatCalculatorWindow.Activate();
+        }
         else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Age calculator" } })
         {
             if (_ageCalculatorWindow is null)
@@ -78,16 +104,110 @@ public sealed partial class CategoryPage : Page
 
             _electricityCostEstimatorWindow.Activate();
         }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Fuel cost calculator" } })
+        {
+            if (_fuelCostCalculatorWindow is null)
+            {
+                _fuelCostCalculatorWindow = new FuelCostCalculatorWindow();
+                _fuelCostCalculatorWindow.Closed += FuelCostCalculatorWindow_Closed;
+            }
+
+            _fuelCostCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Solar panel output estimator" } })
+        {
+            if (_solarPanelOutputEstimatorWindow is null)
+            {
+                _solarPanelOutputEstimatorWindow = new SolarPanelOutputEstimatorWindow();
+                _solarPanelOutputEstimatorWindow.Closed += SolarPanelOutputEstimatorWindow_Closed;
+            }
+
+            _solarPanelOutputEstimatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Vikram Samvat converter" } })
+        {
+            if (_vikramSamvatConverterWindow is null)
+            {
+                _vikramSamvatConverterWindow = new VikramSamvatConverterWindow();
+                _vikramSamvatConverterWindow.Closed += VikramSamvatConverterWindow_Closed;
+            }
+
+            _vikramSamvatConverterWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Cooking randomiser" } })
+        {
+            if (_cookingRandomiserWindow is null)
+            {
+                _cookingRandomiserWindow = new CookingRandomiserWindow();
+                _cookingRandomiserWindow.Closed += CookingRandomiserWindow_Closed;
+            }
+
+            _cookingRandomiserWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Trip Packing checklist" } })
+        {
+            if (_tripPackingChecklistWindow is null)
+            {
+                _tripPackingChecklistWindow = new TripPackingChecklistWindow();
+                _tripPackingChecklistWindow.Closed += TripPackingChecklistWindow_Closed;
+            }
+
+            _tripPackingChecklistWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Nakshatra calculator" } })
+        {
+            if (_nakshatraCalculatorWindow is null)
+            {
+                _nakshatraCalculatorWindow = new NakshatraCalculatorWindow();
+                _nakshatraCalculatorWindow.Closed += NakshatraCalculatorWindow_Closed;
+            }
+
+            _nakshatraCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Room area & volume calculator" } })
+        {
+            if (_roomAreaVolumeCalculatorWindow is null)
+            {
+                _roomAreaVolumeCalculatorWindow = new RoomAreaVolumeCalculatorWindow();
+                _roomAreaVolumeCalculatorWindow.Closed += RoomAreaVolumeCalculatorWindow_Closed;
+            }
+
+            _roomAreaVolumeCalculatorWindow.Activate();
+        }
     }
 
     private void BmiWindow_Closed(object sender, WindowEventArgs e) =>
         _bmiWindow = null;
+
+    private void BodyFatCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _bodyFatCalculatorWindow = null;
 
     private void AgeCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
         _ageCalculatorWindow = null;
 
     private void ElectricityCostEstimatorWindow_Closed(object sender, WindowEventArgs e) =>
         _electricityCostEstimatorWindow = null;
+
+    private void FuelCostCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _fuelCostCalculatorWindow = null;
+
+    private void SolarPanelOutputEstimatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _solarPanelOutputEstimatorWindow = null;
+
+    private void VikramSamvatConverterWindow_Closed(object sender, WindowEventArgs e) =>
+        _vikramSamvatConverterWindow = null;
+
+    private void CookingRandomiserWindow_Closed(object sender, WindowEventArgs e) =>
+        _cookingRandomiserWindow = null;
+
+    private void TripPackingChecklistWindow_Closed(object sender, WindowEventArgs e) =>
+        _tripPackingChecklistWindow = null;
+
+    private void NakshatraCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _nakshatraCalculatorWindow = null;
+
+    private void RoomAreaVolumeCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _roomAreaVolumeCalculatorWindow = null;
 
     private void ToolCard_Tapped(object sender, TappedRoutedEventArgs e)
     {

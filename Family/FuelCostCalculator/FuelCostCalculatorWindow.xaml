@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Family.FuelCostCalculator.FuelCostCalculatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Fuel cost calculator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto"
+        VerticalScrollMode="Auto"
+        ZoomMode="Disabled">
+        <Grid Padding="16" RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="Fuel cost calculator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Estimate fuel and running cost for multiple vehicles in a journey."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid ColumnSpacing="16" RowSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Journey distance (km)" />
+                        <NumberBox
+                            x:Name="DistanceBox"
+                            Minimum="0"
+                            PlaceholderText="e.g. 125"
+                            SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Spacing="6">
+                        <TextBlock Text="Fuel price (₹/litre)" />
+                        <NumberBox
+                            x:Name="FuelPriceBox"
+                            Minimum="0"
+                            PlaceholderText="e.g. 104.5"
+                            SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="2"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="1.3*" />
+                            <ColumnDefinition Width="1.3*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontWeight="SemiBold" Text="Vehicle" />
+                        <TextBlock Grid.Column="1" FontWeight="SemiBold" Text="Economy (km/l)" />
+                        <TextBlock Grid.Column="2" FontWeight="SemiBold" Text="Trips / month" />
+                    </Grid>
+
+                    <ItemsControl x:Name="VehicleEntriesControl">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Spacing="8" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnSpacing="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1.3*" />
+                                        <ColumnDefinition Width="1.3*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBox
+                                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        PlaceholderText="e.g. Car" />
+                                    <NumberBox
+                                        Grid.Column="1"
+                                        Minimum="0"
+                                        PlaceholderText="e.g. 18"
+                                        Value="{Binding Economy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SpinButtonPlacementMode="Hidden" />
+                                    <NumberBox
+                                        Grid.Column="2"
+                                        Minimum="1"
+                                        Value="{Binding TripsPerMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SpinButtonPlacementMode="Hidden" />
+                                    <Button
+                                        Grid.Column="3"
+                                        VerticalAlignment="Center"
+                                        Click="RemoveVehicleButton_Click">
+                                        <SymbolIcon Symbol="Delete" />
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Button
+                        HorizontalAlignment="Right"
+                        Click="AddVehicleButton_Click"
+                        Content="Add vehicle" />
+                </StackPanel>
+            </Border>
+
+            <Button
+                Grid.Row="3"
+                HorizontalAlignment="Right"
+                Click="CalculateButton_Click"
+                Content="Calculate estimate"
+                Style="{StaticResource AccentButtonStyle}" />
+
+            <InfoBar
+                x:Name="ValidationBar"
+                Grid.Row="4"
+                IsClosable="False"
+                IsOpen="False"
+                Severity="Warning" />
+
+            <Border
+                Grid.Row="5"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="10">
+                    <TextBlock FontSize="18" FontWeight="SemiBold" Text="Trip estimate" />
+                    <Grid ColumnSpacing="16" RowSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Fuel per trip" />
+                        <TextBlock x:Name="FuelPerTripText" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="1" Text="Cost per trip" />
+                        <TextBlock x:Name="CostPerTripText" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="2" Text="Fuel per month" />
+                        <TextBlock x:Name="MonthlyFuelText" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Text="-" />
+
+                        <TextBlock Grid.Row="3" FontWeight="SemiBold" Text="Monthly cost" />
+                        <TextBlock x:Name="MonthlyCostText" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" FontWeight="SemiBold" Text="-" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>
