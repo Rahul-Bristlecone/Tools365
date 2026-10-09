@@ -6,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Tools365.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" >
 
-    <Page.Resources>
+    <Page.Resources >
         <SolidColorBrush x:Key="CategoryCardBackgroundBrush" Color="#EAF1F4" />
         <SolidColorBrush x:Key="CategorySubCardBackgroundBrush" Color="#F5F8F9" />
         <SolidColorBrush x:Key="CategoryCardHoverBrush" Color="#E6EEF1" />
@@ -18,7 +18,7 @@
             <Setter Property="Background" Value="{StaticResource CategoryCardAccentBrush}" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="CornerRadius" Value="3" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -44,7 +44,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Padding="32,24" RowSpacing="24">
+    <Grid Padding="32,24" RowSpacing="24" UseLayoutRounding="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -73,7 +73,7 @@
                             Background="{StaticResource CategoryCardBackgroundBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
-                            CornerRadius="8"
+                            CornerRadius="4"
                             PointerEntered="ToolCard_PointerEntered"
                             PointerExited="ToolCard_PointerExited"
                             Tapped="ToolCard_Tapped"
@@ -89,7 +89,7 @@
                                         Grid.Column="0"
                                         Padding="6,4"
                                         Background="{StaticResource CategoryCardAccentBrush}"
-                                        CornerRadius="4">
+                                        CornerRadius="2">
                                         <TextBlock
                                             FontSize="{x:Bind TitleFontSize}"
                                             Foreground="White"
@@ -137,7 +137,7 @@
                             Background="{StaticResource CategoryCardBackgroundBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
-                            CornerRadius="8"
+                            CornerRadius="4"
                             PointerEntered="ToolCard_PointerEntered"
                             PointerExited="ToolCard_PointerExited"
                             Visibility="{x:Bind local:CategoryPage.ConverterVisibility(IsConverter), Mode=OneWay}">

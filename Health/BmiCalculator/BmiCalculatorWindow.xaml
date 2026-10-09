@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Window
-    x:Class="Tools365.Health.BmiCalculatorWindow"
+<Window x:Class="Tools365.Health.BmiCalculatorWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="BMI calculator">
+    Title="BMI calculator"  >
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
-
-    <Grid Padding="24" RowSpacing="14">
+    <Grid Padding="24" RowSpacing="14" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

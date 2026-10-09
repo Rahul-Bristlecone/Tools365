@@ -29,6 +29,9 @@ public sealed partial class CategoryPage : Page
     private BmiCalculatorWindow? _bmiWindow;
     private BodyFatCalculatorWindow? _bodyFatCalculatorWindow;
     private AgeCalculatorWindow? _ageCalculatorWindow;
+    private CagrCalculatorWindow? _cagrCalculatorWindow;
+    private EpfCalculatorWindow? _epfCalculatorWindow;
+    private GstCalculatorWindow? _gstCalculatorWindow;
     private ElectricityCostEstimatorWindow? _electricityCostEstimatorWindow;
     private FuelCostCalculatorWindow? _fuelCostCalculatorWindow;
     private SolarPanelOutputEstimatorWindow? _solarPanelOutputEstimatorWindow;
@@ -93,6 +96,36 @@ public sealed partial class CategoryPage : Page
             }
 
             _ageCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "CAGR calculator" } })
+        {
+            if (_cagrCalculatorWindow is null)
+            {
+                _cagrCalculatorWindow = new CagrCalculatorWindow();
+                _cagrCalculatorWindow.Closed += CagrCalculatorWindow_Closed;
+            }
+
+            _cagrCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "EPF calculator" } })
+        {
+            if (_epfCalculatorWindow is null)
+            {
+                _epfCalculatorWindow = new EpfCalculatorWindow();
+                _epfCalculatorWindow.Closed += EpfCalculatorWindow_Closed;
+            }
+
+            _epfCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "GST calculator" } })
+        {
+            if (_gstCalculatorWindow is null)
+            {
+                _gstCalculatorWindow = new GstCalculatorWindow();
+                _gstCalculatorWindow.Closed += GstCalculatorWindow_Closed;
+            }
+
+            _gstCalculatorWindow.Activate();
         }
         else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Electricity cost estimator" } })
         {
@@ -184,6 +217,15 @@ public sealed partial class CategoryPage : Page
 
     private void AgeCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
         _ageCalculatorWindow = null;
+
+    private void CagrCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _cagrCalculatorWindow = null;
+
+    private void EpfCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _epfCalculatorWindow = null;
+
+    private void GstCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _gstCalculatorWindow = null;
 
     private void ElectricityCostEstimatorWindow_Closed(object sender, WindowEventArgs e) =>
         _electricityCostEstimatorWindow = null;

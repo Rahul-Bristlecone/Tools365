@@ -10,7 +10,14 @@
     <PublishProfile Condition="Exists('Properties\PublishProfiles\win-$(Platform).pubxml')">win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <WinUISDKReferences>false</WinUISDKReferences>
-    <EnableMsixTooling>true</EnableMsixTooling>
+    <EnableWinAppRunSupport>false</EnableWinAppRunSupport>
+    <WindowsPackageType Condition="'$(Configuration)' == 'Debug'">None</WindowsPackageType>
+    <WindowsAppSDKSelfContained Condition="'$(Configuration)' == 'Debug'">true</WindowsAppSDKSelfContained>
+    <EnableMsixTooling Condition="'$(Configuration)' == 'Debug'">false</EnableMsixTooling>
+    <EnableMsixTooling Condition="'$(Configuration)' != 'Debug'">true</EnableMsixTooling>
+    <AppxPackageSigningEnabled Condition="'$(Configuration)' == 'Debug'">false</AppxPackageSigningEnabled>
+    <AppxPackageSigningEnabled Condition="'$(Configuration)' != 'Debug'">true</AppxPackageSigningEnabled>
+    <PackageCertificateThumbprint Condition="'$(Configuration)' != 'Debug'">419C7783384CB94E52E7C9643E0E9498F93203FA</PackageCertificateThumbprint>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -57,7 +64,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2705" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.5.4-experimental" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools.WinApp" Version="0.6.1" />
   </ItemGroup>
 
   <!--
