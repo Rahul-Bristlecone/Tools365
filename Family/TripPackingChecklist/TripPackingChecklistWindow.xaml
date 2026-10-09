@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Window
-    x:Class="Tools365.Family.TripPackingChecklist.TripPackingChecklistWindow"
+<Window x:Class="Tools365.Family.TripPackingChecklist.TripPackingChecklistWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Tools365.Family.TripPackingChecklist"
-    Title="Trip Packing checklist">
+    Title="Trip Packing checklist"  >
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
-
     <ScrollViewer
         HorizontalScrollBarVisibility="Disabled"
         HorizontalScrollMode="Disabled"
         VerticalScrollBarVisibility="Auto"
         VerticalScrollMode="Auto"
-        ZoomMode="Disabled">
+        ZoomMode="Disabled" >
         <Grid Padding="16" RowSpacing="16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -30,7 +28,7 @@
                     TextWrapping="Wrap" />
             </StackPanel>
 
-            <Grid Grid.Row="1" ColumnSpacing="16" RowSpacing="12">
+            <Grid Row="1" ColumnSpacing="16" RowSpacing="12">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -81,7 +79,7 @@
 
                         <TextBlock FontSize="18" FontWeight="SemiBold" Text="Packing status" />
 
-                        <Grid Grid.Row="1" ColumnSpacing="12">
+                        <Grid Row="1" ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -98,7 +96,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <Grid Grid.Row="2" ColumnSpacing="12">
+                        <Grid Row="2" ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />

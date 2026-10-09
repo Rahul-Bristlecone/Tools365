@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Window
-    x:Class="Tools365.Technology.KubernetesResourceCalculatorWindow"
+<Window x:Class="Tools365.Technology.KubernetesResourceCalculatorWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Kubernetes Capacity Planner">
+    Title="Kubernetes Capacity Planner"  >
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
-
-    <ScrollViewer>
+    <ScrollViewer >
         <Grid Padding="28" RowSpacing="18" ColumnSpacing="24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="360" />

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Window
-    x:Class="Tools365.Pages.PinnedToolWidgetWindow"
+<Window x:Class="Tools365.Pages.PinnedToolWidgetWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Tools365 widget">
+    Title="Tools365 widget"  >
     <Window.SystemBackdrop>
         <MicaBackdrop />
-    </Window.SystemBackdrop>
-
-    <Border
+    </Window.SystemBackdrop><Border
         Padding="16"
         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
-        CornerRadius="8">
+        CornerRadius="8" >
         <Grid RowSpacing="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

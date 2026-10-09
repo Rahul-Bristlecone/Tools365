@@ -10,14 +10,14 @@
 
   <Identity
     Name="2862E447-6B91-4072-823C-8B5A9E138C69"
-    Publisher="CN=AppPublisher"
+    Publisher="CN=Tools365 Publisher"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="2862E447-6B91-4072-823C-8B5A9E138C69" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Tools365</DisplayName>
-    <PublisherDisplayName>AppPublisher</PublisherDisplayName>
+    <PublisherDisplayName>Tools365</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

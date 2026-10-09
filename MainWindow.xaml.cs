@@ -82,14 +82,20 @@ public sealed partial class MainWindow : Window
     private void SetNavigationButtonVisual(ToggleButton button, bool isActive, bool isHovered)
     {
         var brushSet = _navigationBrushes[button.Tag as string ?? string.Empty];
-        button.Background = isActive
-                ? isHovered ? brushSet.ActiveHover : brushSet.Active
-                : isHovered
-                    ? brushSet.InactiveHover
-                    : GetNavigationBrush("NavigationPillInactiveBrush");
-            button.Foreground = isActive
-                ? GetNavigationBrush("NavigationPillActiveForegroundBrush")
-                : GetNavigationBrush("NavigationPillInactiveForegroundBrush");
+        var activeBrush = isHovered ? brushSet.ActiveHover : brushSet.Active;
+        var inactiveBrush = isHovered ? brushSet.InactiveHover : GetNavigationBrush("NavigationPillInactiveBrush");
+
+        button.Background = isActive ? activeBrush : inactiveBrush;
+        button.Foreground = isActive
+            ? GetNavigationBrush("NavigationPillActiveForegroundBrush")
+            : GetNavigationBrush("NavigationPillInactiveForegroundBrush");
+        button.BorderBrush = isActive
+            ? activeBrush
+            : GetNavigationBrush("NavigationPillInactiveBrush");
+        button.BorderThickness = isActive ? new Thickness(1.5) : new Thickness(0);
+        button.Shadow = isActive
+            ? (ThemeShadow)RootGrid.Resources["NavigationPillActiveShadow"]
+            : null;
     }
 
     private Microsoft.UI.Xaml.Media.Brush GetNavigationBrush(string key)
