@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Education.UnitsConverter.UnitsConverterWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Units converter">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <Grid Padding="24" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="4">
+            <TextBlock FontSize="24" FontWeight="SemiBold" Text="Units converter" />
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="Convert measurements across common unit categories."
+                TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Border
+            Grid.Row="1"
+            Padding="16"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <StackPanel Spacing="6">
+                <TextBlock Text="Unit category" />
+                <ComboBox
+                    x:Name="CategoryComboBox"
+                    HorizontalAlignment="Stretch"
+                    SelectionChanged="CategoryComboBox_SelectionChanged" />
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="2" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="FROM" />
+                    <NumberBox
+                        x:Name="InputValueBox"
+                        Value="1"
+                        SpinButtonPlacementMode="Compact"
+                        ValueChanged="InputValueBox_ValueChanged"
+                        AutomationProperties.Name="Value to convert" />
+                    <ComboBox
+                        x:Name="FromUnitComboBox"
+                        HorizontalAlignment="Stretch"
+                        SelectionChanged="UnitComboBox_SelectionChanged"
+                        AutomationProperties.Name="Convert from unit" />
+                </StackPanel>
+            </Border>
+
+            <Button
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Click="SwapUnits_Click"
+                ToolTipService.ToolTip="Swap units"
+                AutomationProperties.Name="Swap units">
+                <SymbolIcon Symbol="Sync" />
+            </Button>
+
+            <Border
+                Grid.Column="2"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="TO" />
+                    <TextBlock
+                        x:Name="ResultValueText"
+                        MinHeight="36"
+                        FontSize="24"
+                        FontWeight="SemiBold"
+                        Text="1"
+                        TextTrimming="CharacterEllipsis"
+                        TextWrapping="NoWrap"
+                        AutomationProperties.Name="Converted value" />
+                    <ComboBox
+                        x:Name="ToUnitComboBox"
+                        HorizontalAlignment="Stretch"
+                        SelectionChanged="UnitComboBox_SelectionChanged"
+                        AutomationProperties.Name="Convert to unit" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <TextBlock
+            x:Name="ConversionFormulaText"
+            Grid.Row="3"
+            HorizontalAlignment="Center"
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+            Text="1 = 1"
+            TextWrapping="Wrap" />
+    </Grid>
+</Window>

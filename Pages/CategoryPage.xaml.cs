@@ -4,7 +4,19 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using System.Collections.ObjectModel;
 using Tools365.Education;
+using Tools365.Education.GpaCalculator;
+using Tools365.Education.IndianHistoryTimeline;
+using Tools365.Education.NeetScoreCalculator;
+using Tools365.Education.RadixConverter;
+using Tools365.Education.SpaceMissionTimeline;
+using Tools365.Education.UnitsConverter;
 using Tools365.Business;
+using Tools365.Business.SerialNumberGenerator;
+using Tools365.Business.ProductSkuGenerator;
+using Tools365.Business.CncFeedSpeedCalculator;
+using Tools365.Business.PurchaseOrderGenerator;
+using Tools365.Business.BusinessDocumentGenerator;
+using Tools365.Business.FormatValidator;
 using Tools365.Family;
 using Tools365.Family.CookingRandomiser;
 using Tools365.Family.ElectricityCostEstimator;
@@ -17,7 +29,17 @@ using Tools365.Family.VikramSamvatConverter;
 using Tools365.Finance;
 using Tools365.Health;
 using Tools365.Health.BodyFatCalculator;
+using Tools365.Health.IdealWeightCalculator;
+using Tools365.Health.OvulationPeriodTracker;
 using Tools365.Technology;
+using Tools365.Technology.ApiResponseTimeCalculator;
+using Tools365.Technology.CronExpressionGenerator;
+using Tools365.Technology.CurlGenerator;
+using Tools365.Technology.DbConnectionStringGenerator;
+using Tools365.Technology.JwtDecoder;
+using Tools365.Technology.SslCertificateChecker;
+using Tools365.Technology.TlsCertificateGenerator;
+using Tools365.Technology.YamlJsonConverter;
 using Tools365.Utility;
 using Tools365.Utility.AgeCalculator;
 
@@ -28,10 +50,18 @@ public sealed partial class CategoryPage : Page
     public ObservableCollection<ToolCard> Cards { get; } = new();
     private BmiCalculatorWindow? _bmiWindow;
     private BodyFatCalculatorWindow? _bodyFatCalculatorWindow;
+    private IdealWeightCalculatorWindow? _idealWeightCalculatorWindow;
+    private OvulationPeriodTrackerWindow? _ovulationPeriodTrackerWindow;
     private AgeCalculatorWindow? _ageCalculatorWindow;
     private CagrCalculatorWindow? _cagrCalculatorWindow;
     private EpfCalculatorWindow? _epfCalculatorWindow;
     private GstCalculatorWindow? _gstCalculatorWindow;
+    private GpaCalculatorWindow? _gpaCalculatorWindow;
+    private UnitsConverterWindow? _unitsConverterWindow;
+    private RadixConverterWindow? _radixConverterWindow;
+    private NeetScoreCalculatorWindow? _neetScoreCalculatorWindow;
+    private IndianHistoryTimelineWindow? _indianHistoryTimelineWindow;
+    private SpaceMissionTimelineWindow? _spaceMissionTimelineWindow;
     private ElectricityCostEstimatorWindow? _electricityCostEstimatorWindow;
     private FuelCostCalculatorWindow? _fuelCostCalculatorWindow;
     private SolarPanelOutputEstimatorWindow? _solarPanelOutputEstimatorWindow;
@@ -41,6 +71,21 @@ public sealed partial class CategoryPage : Page
     private NakshatraCalculatorWindow? _nakshatraCalculatorWindow;
     private RoomAreaVolumeCalculatorWindow? _roomAreaVolumeCalculatorWindow;
     private KubernetesResourceCalculatorWindow? _kubernetesCalculatorWindow;
+    private YamlJsonConverterWindow? _yamlJsonConverterWindow;
+    private CronExpressionGeneratorWindow? _cronExpressionGeneratorWindow;
+    private DbConnectionStringGeneratorWindow? _dbConnectionStringGeneratorWindow;
+    private ApiResponseTimeCalculatorWindow? _apiResponseTimeCalculatorWindow;
+    private CurlGeneratorWindow? _curlGeneratorWindow;
+    private TlsCertificateGeneratorWindow? _tlsCertificateGeneratorWindow;
+    private JwtDecoderWindow? _jwtDecoderWindow;
+    private SslCertificateCheckerWindow? _sslCertificateCheckerWindow;
+    private SerialNumberGeneratorWindow? _serialNumberGeneratorWindow;
+    private ProductSkuGeneratorWindow? _productSkuGeneratorWindow;
+    private CncFeedSpeedCalculatorWindow? _cncFeedSpeedCalculatorWindow;
+    private PurchaseOrderGeneratorWindow? _purchaseOrderGeneratorWindow;
+    private BusinessDocumentGeneratorWindow? _quotationMakerWindow;
+    private BusinessDocumentGeneratorWindow? _invoiceMakerWindow;
+    private BusinessFormatValidatorWindow? _businessFormatValidatorWindow;
     private readonly List<PinnedToolWidgetWindow> _pinnedWidgets = new();
     private string _activeCategory = "Family";
 
@@ -67,6 +112,188 @@ public sealed partial class CategoryPage : Page
 
     private void ToolCard_Click(object sender, RoutedEventArgs e)
     {
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "API response time calculator" } })
+        {
+            if (_apiResponseTimeCalculatorWindow is null)
+            {
+                _apiResponseTimeCalculatorWindow = new ApiResponseTimeCalculatorWindow();
+                _apiResponseTimeCalculatorWindow.Closed += ApiResponseTimeCalculatorWindow_Closed;
+            }
+
+            _apiResponseTimeCalculatorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "CURL Generator" } })
+        {
+            if (_curlGeneratorWindow is null)
+            {
+                _curlGeneratorWindow = new CurlGeneratorWindow();
+                _curlGeneratorWindow.Closed += CurlGeneratorWindow_Closed;
+            }
+
+            _curlGeneratorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "TLS certificate generator" } })
+        {
+            if (_tlsCertificateGeneratorWindow is null)
+            {
+                _tlsCertificateGeneratorWindow = new TlsCertificateGeneratorWindow();
+                _tlsCertificateGeneratorWindow.Closed += TlsCertificateGeneratorWindow_Closed;
+            }
+
+            _tlsCertificateGeneratorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "JWT Decoder" } })
+        {
+            if (_jwtDecoderWindow is null)
+            {
+                _jwtDecoderWindow = new JwtDecoderWindow();
+                _jwtDecoderWindow.Closed += JwtDecoderWindow_Closed;
+            }
+
+            _jwtDecoderWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "SSL Certificate Checker" } })
+        {
+            if (_sslCertificateCheckerWindow is null)
+            {
+                _sslCertificateCheckerWindow = new SslCertificateCheckerWindow();
+                _sslCertificateCheckerWindow.Closed += SslCertificateCheckerWindow_Closed;
+            }
+
+            _sslCertificateCheckerWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "Serial Number generator" } })
+        {
+            if (_serialNumberGeneratorWindow is null)
+            {
+                _serialNumberGeneratorWindow = new SerialNumberGeneratorWindow();
+                _serialNumberGeneratorWindow.Closed += SerialNumberGeneratorWindow_Closed;
+            }
+
+            _serialNumberGeneratorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "Product SKU generator" } })
+        {
+            if (_productSkuGeneratorWindow is null)
+            {
+                _productSkuGeneratorWindow = new ProductSkuGeneratorWindow();
+                _productSkuGeneratorWindow.Closed += ProductSkuGeneratorWindow_Closed;
+            }
+
+            _productSkuGeneratorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "CNC feed and Speed calculator" } })
+        {
+            if (_cncFeedSpeedCalculatorWindow is null)
+            {
+                _cncFeedSpeedCalculatorWindow = new CncFeedSpeedCalculatorWindow();
+                _cncFeedSpeedCalculatorWindow.Closed += CncFeedSpeedCalculatorWindow_Closed;
+            }
+
+            _cncFeedSpeedCalculatorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "PO generator" } })
+        {
+            if (_purchaseOrderGeneratorWindow is null)
+            {
+                _purchaseOrderGeneratorWindow = new PurchaseOrderGeneratorWindow();
+                _purchaseOrderGeneratorWindow.Closed += PurchaseOrderGeneratorWindow_Closed;
+            }
+
+            _purchaseOrderGeneratorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "Quotation maker" } })
+        {
+            if (_quotationMakerWindow is null)
+            {
+                _quotationMakerWindow = new BusinessDocumentGeneratorWindow(BusinessDocumentType.Quotation);
+                _quotationMakerWindow.Closed += QuotationMakerWindow_Closed;
+            }
+
+            _quotationMakerWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "Invoice maker" } })
+        {
+            if (_invoiceMakerWindow is null)
+            {
+                _invoiceMakerWindow = new BusinessDocumentGeneratorWindow(BusinessDocumentType.Invoice);
+                _invoiceMakerWindow.Closed += InvoiceMakerWindow_Closed;
+            }
+
+            _invoiceMakerWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "Format Validator - GST, PAN, AADHAR" } })
+        {
+            if (_businessFormatValidatorWindow is null)
+            {
+                _businessFormatValidatorWindow = new BusinessFormatValidatorWindow();
+                _businessFormatValidatorWindow.Closed += BusinessFormatValidatorWindow_Closed;
+            }
+
+            _businessFormatValidatorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "DB connection string generator" } })
+        {
+            if (_dbConnectionStringGeneratorWindow is null)
+            {
+                _dbConnectionStringGeneratorWindow = new DbConnectionStringGeneratorWindow();
+                _dbConnectionStringGeneratorWindow.Closed += DbConnectionStringGeneratorWindow_Closed;
+            }
+
+            _dbConnectionStringGeneratorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "Cron expression generator" } })
+        {
+            if (_cronExpressionGeneratorWindow is null)
+            {
+                _cronExpressionGeneratorWindow = new CronExpressionGeneratorWindow();
+                _cronExpressionGeneratorWindow.Closed += CronExpressionGeneratorWindow_Closed;
+            }
+
+            _cronExpressionGeneratorWindow.Activate();
+            return;
+        }
+
+        if (sender is FrameworkElement { DataContext: ToolCard card } &&
+            card.Title == "YAML / JSON converter")
+        {
+            if (_yamlJsonConverterWindow is null)
+            {
+                _yamlJsonConverterWindow = new YamlJsonConverterWindow();
+                _yamlJsonConverterWindow.Closed += YamlJsonConverterWindow_Closed;
+            }
+
+            _yamlJsonConverterWindow.SetSourceFormat(card.SourceFormat);
+            _yamlJsonConverterWindow.Activate();
+            return;
+        }
+
         if (sender is FrameworkElement { DataContext: ToolCard { Title: "BMI calculator" } })
         {
             if (_bmiWindow is null)
@@ -86,6 +313,26 @@ public sealed partial class CategoryPage : Page
             }
 
             _bodyFatCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Ideal weight calculator" } })
+        {
+            if (_idealWeightCalculatorWindow is null)
+            {
+                _idealWeightCalculatorWindow = new IdealWeightCalculatorWindow();
+                _idealWeightCalculatorWindow.Closed += IdealWeightCalculatorWindow_Closed;
+            }
+
+            _idealWeightCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Ovulation | Period tracker" } })
+        {
+            if (_ovulationPeriodTrackerWindow is null)
+            {
+                _ovulationPeriodTrackerWindow = new OvulationPeriodTrackerWindow();
+                _ovulationPeriodTrackerWindow.Closed += OvulationPeriodTrackerWindow_Closed;
+            }
+
+            _ovulationPeriodTrackerWindow.Activate();
         }
         else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Age calculator" } })
         {
@@ -126,6 +373,66 @@ public sealed partial class CategoryPage : Page
             }
 
             _gstCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "GPA Calculator" } })
+        {
+            if (_gpaCalculatorWindow is null)
+            {
+                _gpaCalculatorWindow = new GpaCalculatorWindow();
+                _gpaCalculatorWindow.Closed += GpaCalculatorWindow_Closed;
+            }
+
+            _gpaCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Units Converter" } })
+        {
+            if (_unitsConverterWindow is null)
+            {
+                _unitsConverterWindow = new UnitsConverterWindow();
+                _unitsConverterWindow.Closed += UnitsConverterWindow_Closed;
+            }
+
+            _unitsConverterWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Radix (Base) Converter" } })
+        {
+            if (_radixConverterWindow is null)
+            {
+                _radixConverterWindow = new RadixConverterWindow();
+                _radixConverterWindow.Closed += RadixConverterWindow_Closed;
+            }
+
+            _radixConverterWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "NEET Score calculator" } })
+        {
+            if (_neetScoreCalculatorWindow is null)
+            {
+                _neetScoreCalculatorWindow = new NeetScoreCalculatorWindow();
+                _neetScoreCalculatorWindow.Closed += NeetScoreCalculatorWindow_Closed;
+            }
+
+            _neetScoreCalculatorWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Indian history timeline" } })
+        {
+            if (_indianHistoryTimelineWindow is null)
+            {
+                _indianHistoryTimelineWindow = new IndianHistoryTimelineWindow();
+                _indianHistoryTimelineWindow.Closed += IndianHistoryTimelineWindow_Closed;
+            }
+
+            _indianHistoryTimelineWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "ISRO and Space mission timeline" } })
+        {
+            if (_spaceMissionTimelineWindow is null)
+            {
+                _spaceMissionTimelineWindow = new SpaceMissionTimelineWindow();
+                _spaceMissionTimelineWindow.Closed += SpaceMissionTimelineWindow_Closed;
+            }
+
+            _spaceMissionTimelineWindow.Activate();
         }
         else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Electricity cost estimator" } })
         {
@@ -215,6 +522,12 @@ public sealed partial class CategoryPage : Page
     private void BodyFatCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
         _bodyFatCalculatorWindow = null;
 
+    private void IdealWeightCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _idealWeightCalculatorWindow = null;
+
+    private void OvulationPeriodTrackerWindow_Closed(object sender, WindowEventArgs e) =>
+        _ovulationPeriodTrackerWindow = null;
+
     private void AgeCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
         _ageCalculatorWindow = null;
 
@@ -226,6 +539,24 @@ public sealed partial class CategoryPage : Page
 
     private void GstCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
         _gstCalculatorWindow = null;
+
+    private void GpaCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _gpaCalculatorWindow = null;
+
+    private void UnitsConverterWindow_Closed(object sender, WindowEventArgs e) =>
+        _unitsConverterWindow = null;
+
+    private void RadixConverterWindow_Closed(object sender, WindowEventArgs e) =>
+        _radixConverterWindow = null;
+
+    private void NeetScoreCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _neetScoreCalculatorWindow = null;
+
+    private void IndianHistoryTimelineWindow_Closed(object sender, WindowEventArgs e) =>
+        _indianHistoryTimelineWindow = null;
+
+    private void SpaceMissionTimelineWindow_Closed(object sender, WindowEventArgs e) =>
+        _spaceMissionTimelineWindow = null;
 
     private void ElectricityCostEstimatorWindow_Closed(object sender, WindowEventArgs e) =>
         _electricityCostEstimatorWindow = null;
@@ -250,6 +581,51 @@ public sealed partial class CategoryPage : Page
 
     private void RoomAreaVolumeCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
         _roomAreaVolumeCalculatorWindow = null;
+
+    private void YamlJsonConverterWindow_Closed(object sender, WindowEventArgs e) =>
+        _yamlJsonConverterWindow = null;
+
+    private void CronExpressionGeneratorWindow_Closed(object sender, WindowEventArgs e) =>
+        _cronExpressionGeneratorWindow = null;
+
+    private void DbConnectionStringGeneratorWindow_Closed(object sender, WindowEventArgs e) =>
+        _dbConnectionStringGeneratorWindow = null;
+
+    private void ApiResponseTimeCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _apiResponseTimeCalculatorWindow = null;
+
+    private void CurlGeneratorWindow_Closed(object sender, WindowEventArgs e) =>
+        _curlGeneratorWindow = null;
+
+    private void TlsCertificateGeneratorWindow_Closed(object sender, WindowEventArgs e) =>
+        _tlsCertificateGeneratorWindow = null;
+
+    private void JwtDecoderWindow_Closed(object sender, WindowEventArgs e) =>
+        _jwtDecoderWindow = null;
+
+    private void SslCertificateCheckerWindow_Closed(object sender, WindowEventArgs e) =>
+        _sslCertificateCheckerWindow = null;
+
+    private void SerialNumberGeneratorWindow_Closed(object sender, WindowEventArgs e) =>
+        _serialNumberGeneratorWindow = null;
+
+    private void ProductSkuGeneratorWindow_Closed(object sender, WindowEventArgs e) =>
+        _productSkuGeneratorWindow = null;
+
+    private void CncFeedSpeedCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _cncFeedSpeedCalculatorWindow = null;
+
+    private void PurchaseOrderGeneratorWindow_Closed(object sender, WindowEventArgs e) =>
+        _purchaseOrderGeneratorWindow = null;
+
+    private void QuotationMakerWindow_Closed(object sender, WindowEventArgs e) =>
+        _quotationMakerWindow = null;
+
+    private void InvoiceMakerWindow_Closed(object sender, WindowEventArgs e) =>
+        _invoiceMakerWindow = null;
+
+    private void BusinessFormatValidatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _businessFormatValidatorWindow = null;
 
     private void ToolCard_Tapped(object sender, TappedRoutedEventArgs e)
     {

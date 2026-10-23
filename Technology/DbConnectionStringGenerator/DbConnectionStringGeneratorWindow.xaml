@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Technology.DbConnectionStringGenerator.DbConnectionStringGeneratorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="DB connection string generator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer>
+        <Grid Padding="28" RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Spacing="4">
+                <TextBlock FontSize="26" FontWeight="SemiBold" Text="DB connection string generator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Build a connection string for your database provider."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="14">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Database provider" />
+                        <ComboBox
+                            x:Name="ProviderComboBox"
+                            HorizontalAlignment="Stretch"
+                            SelectedIndex="0"
+                            AutomationProperties.Name="Database provider">
+                            <ComboBoxItem Content="SQL Server" />
+                            <ComboBoxItem Content="PostgreSQL" />
+                            <ComboBoxItem Content="MySQL" />
+                            <ComboBoxItem Content="SQLite" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Grid
+                        x:Name="ServerFields"
+                        ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="6">
+                            <TextBlock
+                                x:Name="ServerLabel"
+                                Text="Server" />
+                            <TextBox
+                                x:Name="ServerBox"
+                                PlaceholderText="e.g. localhost"
+                                AutomationProperties.Name="Database server" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="1"
+                            Spacing="6">
+                            <TextBlock Text="Port" />
+                            <NumberBox
+                                x:Name="PortBox"
+                                Value="1433"
+                                Minimum="1"
+                                Maximum="65535"
+                                SpinButtonPlacementMode="Compact"
+                                AutomationProperties.Name="Database port" />
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel
+                        x:Name="DatabasePanel"
+                        Spacing="6">
+                        <TextBlock Text="Database name" />
+                        <TextBox
+                            x:Name="DatabaseBox"
+                            PlaceholderText="e.g. appdb"
+                            AutomationProperties.Name="Database name" />
+                    </StackPanel>
+
+                    <StackPanel
+                        x:Name="SqliteFilePanel"
+                        Spacing="6"
+                        Visibility="Collapsed">
+                        <TextBlock Text="Database file path" />
+                        <TextBox
+                            x:Name="SqliteFileBox"
+                            PlaceholderText="e.g. C:\data\app.db"
+                            AutomationProperties.Name="SQLite database file path" />
+                    </StackPanel>
+
+                    <StackPanel
+                        x:Name="AuthenticationPanel"
+                        Spacing="10">
+                        <StackPanel Spacing="6">
+                            <TextBlock
+                                x:Name="AuthenticationLabel"
+                                Text="Authentication" />
+                            <ComboBox
+                                x:Name="AuthenticationComboBox"
+                                HorizontalAlignment="Stretch"
+                                SelectedIndex="0"
+                                AutomationProperties.Name="SQL Server authentication">
+                                <ComboBoxItem Content="User name and password" />
+                                <ComboBoxItem Content="Windows authentication" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel
+                            x:Name="CredentialsPanel"
+                            Spacing="10">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="User name" />
+                                <TextBox
+                                    x:Name="UsernameBox"
+                                    PlaceholderText="e.g. appuser"
+                                    AutomationProperties.Name="Database user name" />
+                            </StackPanel>
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="Password" />
+                                <PasswordBox
+                                    x:Name="PasswordBox"
+                                    PasswordRevealMode="Peek"
+                                    AutomationProperties.Name="Database password" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <ToggleSwitch
+                        x:Name="PoolingSwitch"
+                        Header="Enable connection pooling"
+                        IsOn="True"
+                        AutomationProperties.Name="Enable connection pooling" />
+                </StackPanel>
+            </Border>
+
+            <InfoBar
+                x:Name="ValidationBar"
+                Grid.Row="2"
+                IsClosable="False"
+                IsOpen="False"
+                Severity="Warning" />
+
+            <Border
+                Grid.Row="3"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="8">
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="CONNECTION STRING" />
+                    <TextBox
+                        x:Name="ConnectionStringBox"
+                        AcceptsReturn="True"
+                        FontFamily="Cascadia Mono"
+                        IsReadOnly="True"
+                        IsSpellCheckEnabled="False"
+                        MinHeight="88"
+                        PlaceholderText="Your connection string will appear here..."
+                        TextWrapping="Wrap"
+                        AutomationProperties.Name="Generated connection string" />
+                </StackPanel>
+            </Border>
+
+            <StackPanel
+                Grid.Row="4"
+                Orientation="Horizontal"
+                Spacing="8">
+                <Button
+                    Click="GenerateButton_Click"
+                    Content="Generate"
+                    AutomationProperties.Name="Generate connection string" />
+                <Button
+                    x:Name="CopyButton"
+                    Click="CopyButton_Click"
+                    Content="Copy connection string"
+                    IsEnabled="False"
+                    AutomationProperties.Name="Copy connection string" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

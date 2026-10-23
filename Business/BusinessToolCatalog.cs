@@ -8,13 +8,13 @@ public static class BusinessToolCatalog
     {
         return new[]
         {
-            new ToolCard("Serial Number generator", "Generate serial numbers for products and records."),
-            new ToolCard("Product SKU generator", "Generate product stock keeping units."),
-            new ToolCard("CNC feed and Speed calculator", "Calculate CNC feed and speed values."),
-            new ToolCard("PO generator", "Create purchase orders."),
-            new ToolCard("Quotation maker", "Create business quotations."),
-            new ToolCard("Invoice maker", "Create invoices for customers."),
-            new ToolCard("Format Validator - GST, PAN, AADHAR", "Validate GST, PAN, and AADHAR formats.")
+            new ToolCard("Serial Number generator", "Create formatted serial numbers for products and records."),
+            new ToolCard("Product SKU generator", "Create consistent SKUs from product codes and a sequence."),
+            new ToolCard("CNC feed and Speed calculator", "Calculate spindle speed and feed rate from cutting parameters."),
+            new ToolCard("PO generator", "Create purchase orders with supplier details, line items, and totals."),
+            new ToolCard("Quotation maker", "Prepare a customer quotation with line items, tax, and totals."),
+            new ToolCard("Invoice maker", "Create a customer invoice with line items, tax, and totals."),
+            new ToolCard("Format Validator - GST, PAN, AADHAR", "Check GSTIN, PAN, and Aadhaar number formats locally.")
         };
     }
 }

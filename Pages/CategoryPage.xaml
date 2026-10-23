@@ -218,6 +218,11 @@
                                         FontWeight="SemiBold"
                                         Text="{x:Bind TargetFormat, Mode=OneWay}" />
                                 </Grid>
+                                <Button
+                                    HorizontalAlignment="Left"
+                                    Click="ToolCard_Click"
+                                    Content="Open converter"
+                                    AutomationProperties.Name="Open YAML and JSON converter" />
                             </StackPanel>
                         </Border>
                         <Border

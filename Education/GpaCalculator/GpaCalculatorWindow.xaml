@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Education.GpaCalculator.GpaCalculatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Tools365.Education.GpaCalculator"
+    Title="GPA calculator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <Grid Padding="24" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="4">
+            <TextBlock FontSize="24" FontWeight="SemiBold" Text="GPA calculator" />
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="Add each course to calculate your credit-weighted GPA on a 4.0 scale."
+                TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Border
+            Grid.Row="1"
+            Padding="16"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid ColumnSpacing="16" RowSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Spacing="2">
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="CREDIT-WEIGHTED GPA" />
+                    <TextBlock
+                        x:Name="GpaValueText"
+                        FontSize="36"
+                        FontWeight="SemiBold"
+                        Text="—" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock x:Name="CourseCountText" Text="0 courses" />
+                    <TextBlock x:Name="TotalCreditsText" Text="0.00 credits" />
+                </StackPanel>
+
+                <InfoBar
+                    x:Name="ValidationBar"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    IsClosable="False"
+                    IsOpen="False"
+                    Severity="Warning" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2" ColumnSpacing="12" Padding="12,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="190" />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="COURSE" />
+            <TextBlock Grid.Column="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="CREDITS" />
+            <TextBlock Grid.Column="2" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="GRADE" />
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <TextBlock
+                x:Name="EmptyCoursesText"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="No courses yet. Add a course to get started." />
+            <ListView
+                x:Name="CoursesList"
+                IsItemClickEnabled="False"
+                ItemsSource="{x:Bind Courses, Mode=OneWay}"
+                SelectionMode="None">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:GpaCourse">
+                        <Grid ColumnSpacing="12" Padding="0,4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="190" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{x:Bind CourseName}" />
+                            <TextBox
+                                Grid.Column="1"
+                                PlaceholderText="e.g. 3"
+                                InputScope="Number"
+                                AutomationProperties.Name="Course credits"
+                                Text="{x:Bind Credits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextChanged="CourseCredits_TextChanged" />
+                            <ComboBox
+                                Grid.Column="2"
+                                AutomationProperties.Name="Course grade"
+                                PlaceholderText="Select grade"
+                                SelectedIndex="{x:Bind GradeIndex, Mode=TwoWay}"
+                                SelectionChanged="Grade_SelectionChanged">
+                                <ComboBoxItem Content="A  ·  4.0" />
+                                <ComboBoxItem Content="A−  ·  3.7" />
+                                <ComboBoxItem Content="B+  ·  3.3" />
+                                <ComboBoxItem Content="B  ·  3.0" />
+                                <ComboBoxItem Content="B−  ·  2.7" />
+                                <ComboBoxItem Content="C+  ·  2.3" />
+                                <ComboBoxItem Content="C  ·  2.0" />
+                                <ComboBoxItem Content="C−  ·  1.7" />
+                                <ComboBoxItem Content="D+  ·  1.3" />
+                                <ComboBoxItem Content="D  ·  1.0" />
+                                <ComboBoxItem Content="F  ·  0.0" />
+                            </ComboBox>
+                            <Button
+                                Grid.Column="3"
+                                VerticalAlignment="Center"
+                                Click="RemoveCourse_Click"
+                                AutomationProperties.Name="Remove course"
+                                Width="40"
+                                Height="36"
+                                Padding="0"
+                                ToolTipService.ToolTip="Remove course">
+                                <SymbolIcon Symbol="Delete" />
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <Button
+            Grid.Row="4"
+            HorizontalAlignment="Right"
+            Click="AddCourse_Click"
+            Content="Add course" />
+    </Grid>
+</Window>

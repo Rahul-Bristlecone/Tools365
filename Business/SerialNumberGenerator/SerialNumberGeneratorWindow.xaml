@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Business.SerialNumberGenerator.SerialNumberGeneratorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Serial number generator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer>
+        <Grid Padding="28" RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Spacing="4">
+                <TextBlock FontSize="26" FontWeight="SemiBold" Text="Serial number generator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Generate a numbered sequence with an optional prefix and suffix."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="14">
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Prefix" />
+                            <TextBox
+                                x:Name="PrefixBox"
+                                PlaceholderText="e.g. SN-"
+                                AutomationProperties.Name="Serial number prefix" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="6">
+                            <TextBlock Text="Suffix" />
+                            <TextBox
+                                x:Name="SuffixBox"
+                                PlaceholderText="Optional"
+                                AutomationProperties.Name="Serial number suffix" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Start at" />
+                            <NumberBox
+                                x:Name="StartingNumberBox"
+                                Value="1"
+                                Minimum="0"
+                                Maximum="999999999999"
+                                SpinButtonPlacementMode="Compact"
+                                AutomationProperties.Name="Starting number" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="6">
+                            <TextBlock Text="Quantity" />
+                            <NumberBox
+                                x:Name="QuantityBox"
+                                Value="10"
+                                Minimum="1"
+                                Maximum="1000"
+                                SpinButtonPlacementMode="Compact"
+                                AutomationProperties.Name="Serial number quantity" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Spacing="6">
+                            <TextBlock Text="Minimum digits" />
+                            <NumberBox
+                                x:Name="DigitsBox"
+                                Value="5"
+                                Minimum="1"
+                                Maximum="12"
+                                SpinButtonPlacementMode="Compact"
+                                AutomationProperties.Name="Minimum number of digits" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <InfoBar
+                x:Name="ValidationBar"
+                Grid.Row="2"
+                IsClosable="False"
+                IsOpen="False"
+                Severity="Warning" />
+
+            <Border
+                Grid.Row="3"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="8">
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="SERIAL NUMBERS" />
+                    <TextBox
+                        x:Name="NumbersBox"
+                        AcceptsReturn="True"
+                        FontFamily="Cascadia Mono"
+                        IsReadOnly="True"
+                        IsSpellCheckEnabled="False"
+                        MinHeight="180"
+                        PlaceholderText="Generated serial numbers will appear here..."
+                        TextWrapping="NoWrap"
+                        AutomationProperties.Name="Generated serial numbers" />
+                </StackPanel>
+            </Border>
+
+            <StackPanel
+                Grid.Row="4"
+                Orientation="Horizontal"
+                Spacing="8">
+                <Button
+                    Click="GenerateButton_Click"
+                    Content="Generate"
+                    AutomationProperties.Name="Generate serial numbers" />
+                <Button
+                    x:Name="CopyButton"
+                    Click="CopyButton_Click"
+                    Content="Copy serial numbers"
+                    IsEnabled="False"
+                    AutomationProperties.Name="Copy serial numbers" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

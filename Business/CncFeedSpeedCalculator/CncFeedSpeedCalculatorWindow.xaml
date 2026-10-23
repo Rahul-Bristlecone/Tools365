@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Business.CncFeedSpeedCalculator.CncFeedSpeedCalculatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="CNC feed and speed calculator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer>
+        <Grid Padding="28" RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Spacing="4">
+                <TextBlock FontSize="26" FontWeight="SemiBold" Text="CNC feed and speed calculator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Calculate spindle RPM and linear feed from cutting speed, tool diameter, flute count, and chip load."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="20"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="14">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Units" />
+                        <ComboBox
+                            x:Name="UnitsComboBox"
+                            HorizontalAlignment="Stretch"
+                            SelectedIndex="0"
+                            AutomationProperties.Name="Measurement units">
+                            <ComboBoxItem Content="Metric" />
+                            <ComboBoxItem Content="Imperial" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="6">
+                            <TextBlock x:Name="CuttingSpeedLabel" Text="Cutting speed (m/min)" />
+                            <NumberBox
+                                x:Name="CuttingSpeedBox"
+                                Value="100"
+                                Minimum="0.001"
+                                SpinButtonPlacementMode="Compact"
+                                AutomationProperties.Name="Cutting speed" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="6">
+                            <TextBlock x:Name="CutterDiameterLabel" Text="Cutter diameter (mm)" />
+                            <NumberBox
+                                x:Name="CutterDiameterBox"
+                                Value="10"
+                                Minimum="0.001"
+                                SpinButtonPlacementMode="Compact"
+                                AutomationProperties.Name="Cutter diameter" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Flute count" />
+                            <NumberBox
+                                x:Name="FluteCountBox"
+                                Value="4"
+                                Minimum="1"
+                                Maximum="100"
+                                SpinButtonPlacementMode="Compact"
+                                AutomationProperties.Name="Number of cutting flutes" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="6">
+                            <TextBlock x:Name="ChipLoadLabel" Text="Chip load (mm/tooth)" />
+                            <NumberBox
+                                x:Name="ChipLoadBox"
+                                Value="0.05"
+                                Minimum="0.001"
+                                SpinButtonPlacementMode="Compact"
+                                AutomationProperties.Name="Chip load per tooth" />
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Use cutting parameters recommended for your tool and material. Confirm the calculated values are within your machine's limits."
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+            <InfoBar
+                x:Name="ValidationBar"
+                Grid.Row="2"
+                IsClosable="False"
+                IsOpen="False"
+                Severity="Warning" />
+
+            <Grid Grid.Row="3" RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Padding="16"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel Spacing="6">
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="SPINDLE SPEED" />
+                            <TextBlock
+                                x:Name="SpindleSpeedText"
+                                FontSize="24"
+                                FontWeight="SemiBold"
+                                Text="—" />
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="RPM" />
+                        </StackPanel>
+                    </Border>
+                    <Border
+                        Grid.Column="1"
+                        Padding="16"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel Spacing="6">
+                            <TextBlock
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="FEED RATE" />
+                            <TextBlock
+                                x:Name="FeedRateText"
+                                FontSize="24"
+                                FontWeight="SemiBold"
+                                Text="—" />
+                            <TextBlock
+                                x:Name="FeedRateUnitText"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="mm/min" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <Button
+                    Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    Click="CalculateButton_Click"
+                    Content="Calculate"
+                    AutomationProperties.Name="Calculate CNC spindle speed and feed rate" />
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Education.NeetScoreCalculator.NeetScoreCalculatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="NEET Score calculator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <Grid Padding="24" RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="NEET Score calculator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Estimate your score using +4 for each correct answer, −1 for each incorrect answer, and 0 for an unattempted question."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid ColumnSpacing="12" RowSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="SUBJECT" />
+                    <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="CORRECT" />
+                    <TextBlock
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="INCORRECT" />
+                    <TextBlock
+                        Grid.Column="3"
+                        HorizontalAlignment="Center"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="UNATTEMPTED" />
+
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="Physics" />
+                    <TextBox
+                        x:Name="PhysicsCorrectBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="0"
+                        PlaceholderText="0"
+                        InputScope="Number"
+                        AutomationProperties.Name="Physics correct answers" />
+                    <TextBox
+                        x:Name="PhysicsIncorrectBox"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Text="0"
+                        PlaceholderText="0"
+                        InputScope="Number"
+                        AutomationProperties.Name="Physics incorrect answers" />
+                    <TextBlock
+                        x:Name="PhysicsUnattemptedText"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="45" />
+
+                    <TextBlock Grid.Row="2" VerticalAlignment="Center" Text="Chemistry" />
+                    <TextBox
+                        x:Name="ChemistryCorrectBox"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Text="0"
+                        PlaceholderText="0"
+                        InputScope="Number"
+                        AutomationProperties.Name="Chemistry correct answers" />
+                    <TextBox
+                        x:Name="ChemistryIncorrectBox"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Text="0"
+                        PlaceholderText="0"
+                        InputScope="Number"
+                        AutomationProperties.Name="Chemistry incorrect answers" />
+                    <TextBlock
+                        x:Name="ChemistryUnattemptedText"
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="45" />
+
+                    <TextBlock Grid.Row="3" VerticalAlignment="Center" Text="Botany" />
+                    <TextBox
+                        x:Name="BotanyCorrectBox"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Text="0"
+                        PlaceholderText="0"
+                        InputScope="Number"
+                        AutomationProperties.Name="Botany correct answers" />
+                    <TextBox
+                        x:Name="BotanyIncorrectBox"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Text="0"
+                        PlaceholderText="0"
+                        InputScope="Number"
+                        AutomationProperties.Name="Botany incorrect answers" />
+                    <TextBlock
+                        x:Name="BotanyUnattemptedText"
+                        Grid.Row="3"
+                        Grid.Column="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="45" />
+
+                    <TextBlock Grid.Row="4" VerticalAlignment="Center" Text="Zoology" />
+                    <TextBox
+                        x:Name="ZoologyCorrectBox"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Text="0"
+                        PlaceholderText="0"
+                        InputScope="Number"
+                        AutomationProperties.Name="Zoology correct answers" />
+                    <TextBox
+                        x:Name="ZoologyIncorrectBox"
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Text="0"
+                        PlaceholderText="0"
+                        InputScope="Number"
+                        AutomationProperties.Name="Zoology incorrect answers" />
+                    <TextBlock
+                        x:Name="ZoologyUnattemptedText"
+                        Grid.Row="4"
+                        Grid.Column="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Text="45" />
+                </Grid>
+            </Border>
+
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Right"
+                Click="CalculateButton_Click"
+                Content="Calculate score" />
+
+            <StackPanel Grid.Row="3" Spacing="10">
+                <InfoBar
+                    x:Name="ValidationBar"
+                    IsClosable="False"
+                    IsOpen="False"
+                    Severity="Warning" />
+                <Border
+                    Padding="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid ColumnSpacing="12" RowSpacing="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="ESTIMATED SCORE" />
+                        <TextBlock
+                            x:Name="TotalScoreText"
+                            Grid.Column="1"
+                            FontSize="28"
+                            FontWeight="SemiBold"
+                            Text="—" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="Correct · incorrect · attempted" />
+                        <TextBlock
+                            x:Name="SummaryText"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Text="—" />
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>
