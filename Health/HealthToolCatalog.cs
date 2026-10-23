@@ -11,7 +11,7 @@ public static class HealthToolCatalog
             new ToolCard("BMI calculator", "Calculate your body mass index."),
             new ToolCard("Body Fat calculator", "Estimate your body fat percentage."),
             new ToolCard("Ideal weight calculator", "Find a healthy target weight range."),
-            new ToolCard("Ovulation | fertility | Period calculator", "Track cycle timing and fertile days.")
+            new ToolCard("Ovulation | Period tracker", "Estimate period dates, ovulation, and the fertile window.")
         };
     }
 }

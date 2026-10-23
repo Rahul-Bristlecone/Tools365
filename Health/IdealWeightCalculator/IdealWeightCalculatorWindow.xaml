@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Health.IdealWeightCalculator.IdealWeightCalculatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Ideal weight calculator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <Grid Padding="24" RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="Ideal weight calculator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Compare a formula-based estimate with the adult BMI healthy-weight range."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid ColumnSpacing="16" RowSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.ColumnSpan="2" Spacing="6">
+                        <TextBlock Text="Height (cm)" />
+                        <NumberBox
+                            x:Name="HeightBox"
+                            Minimum="0"
+                            Maximum="300"
+                            Value="170"
+                            PlaceholderText="e.g. 170"
+                            SpinButtonPlacementMode="Inline" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Spacing="6">
+                        <TextBlock Text="Formula profile" />
+                        <ComboBox x:Name="ProfileComboBox" SelectedIndex="0">
+                            <ComboBoxItem Content="Male reference equation" />
+                            <ComboBoxItem Content="Female reference equation" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Spacing="6">
+                        <TextBlock Text="Ideal-weight formula" />
+                        <ComboBox x:Name="FormulaComboBox" SelectedIndex="0">
+                            <ComboBoxItem Content="Devine" />
+                            <ComboBoxItem Content="Robinson" />
+                            <ComboBoxItem Content="Miller" />
+                            <ComboBoxItem Content="Hamwi" />
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Button
+                Grid.Row="2"
+                HorizontalAlignment="Left"
+                Click="CalculateButton_Click"
+                Content="Calculate"
+                Style="{StaticResource AccentButtonStyle}" />
+
+            <StackPanel Grid.Row="3" Spacing="12">
+                <InfoBar
+                    x:Name="ValidationBar"
+                    IsClosable="False"
+                    IsOpen="False"
+                    Severity="Warning" />
+
+                <Border
+                    Padding="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <StackPanel Spacing="12">
+                        <TextBlock FontSize="18" FontWeight="SemiBold" Text="Estimated results" />
+                        <Grid ColumnSpacing="16" RowSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Formula estimate" />
+                            <TextBlock
+                                x:Name="FormulaEstimateText"
+                                Grid.Column="1"
+                                FontWeight="SemiBold"
+                                HorizontalAlignment="Right"
+                                Text="-" />
+
+                            <TextBlock Grid.Row="1" Text="BMI healthy-weight range" />
+                            <TextBlock
+                                x:Name="BmiRangeText"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Text="-" />
+                        </Grid>
+                        <TextBlock
+                            x:Name="FormulaDescriptionText"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="Select a formula to see its reference equation."
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="These estimates are for adults and are not a diagnosis or a personal medical target. BMI and ideal-weight formulas are screening references; individual needs vary. They are not intended for children or pregnancy."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

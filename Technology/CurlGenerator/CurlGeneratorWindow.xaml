@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Technology.CurlGenerator.CurlGeneratorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="cURL Generator">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer>
+        <Grid Padding="24" RowSpacing="14">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="cURL Generator" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Create a safely quoted cURL command for a POSIX-compatible shell."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Method" />
+                            <ComboBox
+                                x:Name="MethodComboBox"
+                                MinWidth="140"
+                                SelectedIndex="0"
+                                AutomationProperties.Name="HTTP method">
+                                <ComboBoxItem Content="GET" />
+                                <ComboBoxItem Content="POST" />
+                                <ComboBoxItem Content="PUT" />
+                                <ComboBoxItem Content="PATCH" />
+                                <ComboBoxItem Content="DELETE" />
+                                <ComboBoxItem Content="HEAD" />
+                                <ComboBoxItem Content="OPTIONS" />
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Column="1"
+                            Spacing="6">
+                            <TextBlock Text="Request URL" />
+                            <TextBox
+                                x:Name="UrlBox"
+                                PlaceholderText="https://api.example.com/v1/items"
+                                AutomationProperties.Name="Request URL" />
+                        </StackPanel>
+                    </Grid>
+                    <StackPanel
+                        Grid.Row="1"
+                        Spacing="6">
+                        <TextBlock Text="Headers (one per line)" />
+                        <TextBox
+                            x:Name="HeadersBox"
+                            AcceptsReturn="True"
+                            IsSpellCheckEnabled="False"
+                            MinHeight="76"
+                            PlaceholderText="Accept: application/json&#x0a;Authorization: Bearer &lt;token&gt;"
+                            TextWrapping="Wrap"
+                            AutomationProperties.Name="HTTP request headers" />
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="2"
+                        Spacing="6">
+                        <TextBlock Text="Request body (optional)" />
+                        <TextBox
+                            x:Name="BodyBox"
+                            AcceptsReturn="True"
+                            FontFamily="Cascadia Mono"
+                            IsSpellCheckEnabled="False"
+                            MinHeight="112"
+                            PlaceholderText="Paste JSON or request data"
+                            TextWrapping="Wrap"
+                            AutomationProperties.Name="HTTP request body" />
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="3"
+                        Spacing="4">
+                        <CheckBox
+                            x:Name="FollowRedirectsCheckBox"
+                            Content="Follow redirects"
+                            IsChecked="True" />
+                        <CheckBox
+                            x:Name="FailOnHttpErrorCheckBox"
+                            Content="Return an error for HTTP 4xx/5xx responses"
+                            IsChecked="True" />
+                    </StackPanel>
+                    <TextBlock
+                        Grid.Row="4"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="Review and redact credentials before sharing a generated command."
+                        TextWrapping="Wrap" />
+                </Grid>
+            </Border>
+            <InfoBar
+                x:Name="ValidationBar"
+                Grid.Row="2"
+                IsClosable="False"
+                IsOpen="False"
+                Severity="Warning" />
+            <Border
+                Grid.Row="3"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="8">
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="GENERATED COMMAND" />
+                    <TextBox
+                        x:Name="CommandBox"
+                        AcceptsReturn="True"
+                        FontFamily="Cascadia Mono"
+                        IsReadOnly="True"
+                        IsSpellCheckEnabled="False"
+                        MinHeight="100"
+                        TextWrapping="Wrap"
+                        AutomationProperties.Name="Generated cURL command" />
+                </StackPanel>
+            </Border>
+            <StackPanel
+                Grid.Row="4"
+                Orientation="Horizontal"
+                Spacing="8">
+                <Button Click="GenerateButton_Click" Content="Generate command" />
+                <Button
+                    x:Name="CopyButton"
+                    Click="CopyButton_Click"
+                    Content="Copy command"
+                    IsEnabled="False" />
+                <Button Click="ClearButton_Click" Content="Clear" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

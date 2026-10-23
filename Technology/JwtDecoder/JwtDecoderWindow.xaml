@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Technology.JwtDecoder.JwtDecoderWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="JWT Decoder">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer>
+        <Grid Padding="24" RowSpacing="14">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="JWT Decoder" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Decode a token locally to inspect its header and payload."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <InfoBar
+                Grid.Row="1"
+                IsClosable="False"
+                IsOpen="True"
+                Severity="Warning"
+                Title="Decoding does not verify a token"
+                Message="Anyone can read JWT contents. This tool does not validate signatures, issuer, audience, or expiration. Never paste production tokens into a shared device." />
+            <Border
+                Grid.Row="2"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="JWT token" />
+                    <TextBox
+                        x:Name="TokenBox"
+                        Grid.Row="1"
+                        AcceptsReturn="True"
+                        FontFamily="Cascadia Mono"
+                        IsSpellCheckEnabled="False"
+                        MaxLength="1048576"
+                        MinHeight="88"
+                        PlaceholderText="Paste a three-part JWT here"
+                        TextWrapping="Wrap"
+                        AutomationProperties.Name="JWT token to decode" />
+                    <StackPanel
+                        Grid.Row="2"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button Click="DecodeButton_Click" Content="Decode token" />
+                        <Button Click="ClearButton_Click" Content="Clear" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Grid Grid.Row="3" ColumnSpacing="12" RowSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <InfoBar
+                    x:Name="ValidationBar"
+                    Grid.ColumnSpan="2"
+                    IsClosable="False"
+                    IsOpen="False"
+                    Severity="Warning" />
+                <Border
+                    Grid.Row="1"
+                    Padding="14"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock FontWeight="SemiBold" Text="HEADER" />
+                        <TextBox
+                            x:Name="HeaderBox"
+                            Grid.Row="1"
+                            AcceptsReturn="True"
+                            FontFamily="Cascadia Mono"
+                            IsReadOnly="True"
+                            IsSpellCheckEnabled="False"
+                            MinHeight="200"
+                            TextWrapping="Wrap"
+                            AutomationProperties.Name="Decoded JWT header" />
+                    </Grid>
+                </Border>
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Padding="14"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock FontWeight="SemiBold" Text="PAYLOAD" />
+                        <TextBox
+                            x:Name="PayloadBox"
+                            Grid.Row="1"
+                            AcceptsReturn="True"
+                            FontFamily="Cascadia Mono"
+                            IsReadOnly="True"
+                            IsSpellCheckEnabled="False"
+                            MinHeight="200"
+                            TextWrapping="Wrap"
+                            AutomationProperties.Name="Decoded JWT payload" />
+                    </Grid>
+                </Border>
+                <Border
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Padding="14"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid RowSpacing="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock FontWeight="SemiBold" Text="SIGNATURE (NOT VERIFIED)" />
+                        <TextBox
+                            x:Name="SignatureBox"
+                            Grid.Row="1"
+                            IsReadOnly="True"
+                            IsSpellCheckEnabled="False"
+                            TextWrapping="Wrap"
+                            AutomationProperties.Name="JWT signature segment, not verified" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Window>

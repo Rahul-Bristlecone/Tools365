@@ -11,6 +11,11 @@ public static class TechnologyToolCatalog
             new ToolCard("YAML / JSON converter", "Convert between YAML and JSON formats.", isConverter: true),
             new ToolCard("Cron expression generator", "Build and understand cron scheduling expressions."),
             new ToolCard("DB connection string generator", "Build database connection strings from common settings."),
+            new ToolCard("API response time calculator", "Analyze response-time samples with average, median, and percentile metrics."),
+            new ToolCard("CURL Generator", "Build a copy-ready cURL command from a request URL, headers, and body."),
+            new ToolCard("TLS certificate generator", "Create a self-signed TLS certificate and password-protected private key."),
+            new ToolCard("JWT Decoder", "Inspect a JWT header and payload locally without verifying its signature."),
+            new ToolCard("SSL Certificate Checker", "Inspect the TLS certificate and protocol presented by a host."),
             new ToolCard(
                 "Kubernetes Resource Calculator",
                 "Estimate pod resources, cluster capacity, scaling, and EKS cost.",

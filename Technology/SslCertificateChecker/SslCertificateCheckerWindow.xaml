@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Technology.SslCertificateChecker.SslCertificateCheckerWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="SSL Certificate Checker">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer>
+        <Grid Padding="24" RowSpacing="14">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Spacing="4">
+                <TextBlock FontSize="24" FontWeight="SemiBold" Text="SSL Certificate Checker" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Inspect the certificate and TLS protocol presented by one host. No HTTP request is sent."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Host name" />
+                        <TextBox
+                            x:Name="HostBox"
+                            PlaceholderText="e.g. example.com"
+                            AutomationProperties.Name="TLS host name" />
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="1"
+                        Spacing="6">
+                        <TextBlock Text="Port" />
+                        <NumberBox
+                            x:Name="PortBox"
+                            Value="443"
+                            Minimum="1"
+                            Maximum="65535"
+                            SpinButtonPlacementMode="Compact"
+                            AutomationProperties.Name="TLS port" />
+                    </StackPanel>
+                    <Button
+                        x:Name="CheckButton"
+                        Grid.Column="2"
+                        VerticalAlignment="Bottom"
+                        Click="CheckButton_Click"
+                        Content="Check certificate" />
+                </Grid>
+            </Border>
+            <InfoBar
+                x:Name="StatusBar"
+                Grid.Row="2"
+                IsClosable="False"
+                IsOpen="False" />
+            <Border
+                Grid.Row="3"
+                Padding="18"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Spacing="8">
+                        <TextBlock FontSize="18" FontWeight="SemiBold" Text="Certificate details" />
+                        <Grid ColumnSpacing="12" RowSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Subject" />
+                            <TextBlock x:Name="SubjectText" Grid.Column="1" TextWrapping="Wrap" />
+                            <TextBlock Grid.Row="1" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="DNS name" />
+                            <TextBlock x:Name="DnsNameText" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" />
+                            <TextBlock Grid.Row="2" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Issuer" />
+                            <TextBlock x:Name="IssuerText" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" />
+                            <TextBlock Grid.Row="3" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Valid from" />
+                            <TextBlock x:Name="NotBeforeText" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" />
+                            <TextBlock Grid.Row="4" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Valid until" />
+                            <TextBlock x:Name="NotAfterText" Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" />
+                            <TextBlock Grid.Row="5" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Negotiated TLS" />
+                            <TextBlock x:Name="ProtocolText" Grid.Row="5" Grid.Column="1" TextWrapping="Wrap" />
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Spacing="4">
+                        <TextBlock FontWeight="SemiBold" Text="Trust validation" />
+                        <TextBlock
+                            x:Name="TrustDetailsText"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>
