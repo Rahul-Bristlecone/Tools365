@@ -16,6 +16,7 @@ public static class TechnologyToolCatalog
             new ToolCard("TLS certificate generator", "Create a self-signed TLS certificate and password-protected private key."),
             new ToolCard("JWT Decoder", "Inspect a JWT header and payload locally without verifying its signature."),
             new ToolCard("SSL Certificate Checker", "Inspect the TLS certificate and protocol presented by a host."),
+            new ToolCard("CIDR calculator", "Calculate IPv4 network details, address ranges, and usable host counts from CIDR notation."),
             new ToolCard(
                 "Kubernetes Resource Calculator",
                 "Estimate pod resources, cluster capacity, scaling, and EKS cost.",

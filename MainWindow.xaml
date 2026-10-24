@@ -83,7 +83,7 @@
             Margin="32,12,32,0"
             Height="56"
             HorizontalAlignment="Stretch"
-            MaxWidth="980"
+            MaxWidth="1240"
             VerticalAlignment="Top"
             Background="{StaticResource NavigationCapsuleAcrylicBrush}"
             BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
@@ -101,6 +101,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="260" />
                 </Grid.ColumnDefinitions>
                 <ToggleButton
                     x:Name="FamilyButton"
@@ -186,6 +187,14 @@
                     PointerExited="CategoryButton_PointerExited"
                     Style="{StaticResource NavigationPillStyle}"
                     Tag="Business" />
+                <AutoSuggestBox
+                    x:Name="GlobalSearchBox"
+                    Grid.Column="7"
+                    VerticalAlignment="Center"
+                    AutomationProperties.Name="Search all tools"
+                    PlaceholderText="Search all tools"
+                    QueryIcon="Find"
+                    TextChanged="GlobalSearchBox_TextChanged" />
             </Grid>
         </Border>
         <Frame

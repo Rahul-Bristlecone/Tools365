@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Tools365.Family.VaccinationReminder.VaccinationReminderWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Vaccination Reminder (India)">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <Grid Padding="24" RowSpacing="16" Loaded="Window_Loaded">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Spacing="4">
+                <TextBlock FontSize="26" FontWeight="SemiBold" Text="Vaccination Reminder (India)" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Track a child's doses against the National Immunization Schedule under India's UIP."
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border
+                Grid.Row="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel Spacing="12">
+                    <TextBlock FontSize="18" FontWeight="SemiBold" Text="Child profile" />
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Date of birth" />
+                        <CalendarDatePicker
+                            x:Name="ChildDateOfBirthPicker"
+                            HorizontalAlignment="Left"
+                            MaxDate="{x:Bind Today}"
+                            PlaceholderText="Choose date of birth"
+                            AutomationProperties.Name="Child date of birth"
+                            DateChanged="ChildDateOfBirthPicker_DateChanged" />
+                    </StackPanel>
+                    <ToggleSwitch
+                        x:Name="JeEndemicAreaSwitch"
+                        Header="Child lives in a Japanese encephalitis endemic district"
+                        OnContent="Include JE doses"
+                        OffContent="Do not include JE doses"
+                        Toggled="JeEndemicAreaSwitch_Toggled" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="JE vaccination is only included for endemic districts. Confirm eligibility with your local health centre."
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+            <InfoBar
+                x:Name="StatusBar"
+                Grid.Row="2"
+                IsClosable="False"
+                IsOpen="False" />
+
+            <StackPanel x:Name="SchedulePanel" Grid.Row="3" Spacing="10" Visibility="Collapsed">
+                <TextBlock x:Name="SummaryText" FontWeight="SemiBold" TextWrapping="Wrap" />
+                <ItemsControl x:Name="DosesList">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Spacing="8" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Padding="14"
+                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <Grid ColumnSpacing="16" RowSpacing="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="240" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Spacing="4">
+                                        <TextBlock FontSize="16" FontWeight="SemiBold" Text="{Binding Vaccine}" />
+                                        <TextBlock
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Text="{Binding Timing}" />
+                                        <TextBlock Text="{Binding DueDateText}" />
+                                        <TextBlock
+                                            FontWeight="SemiBold"
+                                            Text="{Binding Status}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Spacing="6">
+                                        <TextBlock Text="Date administered (optional)" />
+                                        <CalendarDatePicker
+                                            HorizontalAlignment="Stretch"
+                                            MaxDate="{Binding MaxAdministeredDate}"
+                                            Date="{Binding AdministeredDate, Mode=OneWay}"
+                                            PlaceholderText="Not recorded"
+                                            Tag="{Binding Id}"
+                                            DateChanged="AdministeredDatePicker_DateChanged" />
+                                        <Button
+                                            HorizontalAlignment="Left"
+                                            Content="Clear recorded date"
+                                            IsEnabled="{Binding HasAdministeredDate}"
+                                            Tag="{Binding Id}"
+                                            Click="ClearAdministeredDate_Click" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Spacing="6">
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="Reminder status is shown in this app; it does not send notifications. Profile and dose records are stored locally on this device."
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="This is a schedule guide, not medical advice. Schedule availability and catch-up recommendations can vary. Follow the child's vaccination card and consult an ANM, ASHA worker, or doctor before making vaccination decisions."
+                    TextWrapping="Wrap" />
+                <HyperlinkButton
+                    HorizontalAlignment="Left"
+                    Content="National Health Mission — Immunization"
+                    NavigateUri="https://nhm.gov.in/index1.php?lang=1&amp;level=2&amp;sublinkid=824&amp;lid=220" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

@@ -25,6 +25,8 @@ using Tools365.Family.NakshatraCalculator;
 using Tools365.Family.RoomAreaVolumeCalculator;
 using Tools365.Family.SolarPanelOutputEstimator;
 using Tools365.Family.TripPackingChecklist;
+using Tools365.Family.VaccinationReminder;
+using Tools365.Family.ApplianceWarrantyTracker;
 using Tools365.Family.VikramSamvatConverter;
 using Tools365.Finance;
 using Tools365.Health;
@@ -33,6 +35,7 @@ using Tools365.Health.IdealWeightCalculator;
 using Tools365.Health.OvulationPeriodTracker;
 using Tools365.Technology;
 using Tools365.Technology.ApiResponseTimeCalculator;
+using Tools365.Technology.CidrCalculator;
 using Tools365.Technology.CronExpressionGenerator;
 using Tools365.Technology.CurlGenerator;
 using Tools365.Technology.DbConnectionStringGenerator;
@@ -48,6 +51,8 @@ namespace Tools365.Pages;
 public sealed partial class CategoryPage : Page
 {
     public ObservableCollection<ToolCard> Cards { get; } = new();
+    private IReadOnlyList<ToolCard> _categoryCards = Array.Empty<ToolCard>();
+    public bool IsGlobalSearch => _activeCategory == "GlobalSearch";
     private BmiCalculatorWindow? _bmiWindow;
     private BodyFatCalculatorWindow? _bodyFatCalculatorWindow;
     private IdealWeightCalculatorWindow? _idealWeightCalculatorWindow;
@@ -68,9 +73,12 @@ public sealed partial class CategoryPage : Page
     private VikramSamvatConverterWindow? _vikramSamvatConverterWindow;
     private CookingRandomiserWindow? _cookingRandomiserWindow;
     private TripPackingChecklistWindow? _tripPackingChecklistWindow;
+    private VaccinationReminderWindow? _vaccinationReminderWindow;
+    private ApplianceWarrantyTrackerWindow? _applianceWarrantyTrackerWindow;
     private NakshatraCalculatorWindow? _nakshatraCalculatorWindow;
     private RoomAreaVolumeCalculatorWindow? _roomAreaVolumeCalculatorWindow;
     private KubernetesResourceCalculatorWindow? _kubernetesCalculatorWindow;
+    private CidrCalculatorWindow? _cidrCalculatorWindow;
     private YamlJsonConverterWindow? _yamlJsonConverterWindow;
     private CronExpressionGeneratorWindow? _cronExpressionGeneratorWindow;
     private DbConnectionStringGeneratorWindow? _dbConnectionStringGeneratorWindow;
@@ -99,19 +107,63 @@ public sealed partial class CategoryPage : Page
         base.OnNavigatedTo(e);
         var category = e.Parameter as string ?? string.Empty;
         _activeCategory = category;
-        SetCategoryCardColors(category);
-        Cards.Clear();
+        SetCategoryCardColors(IsGlobalSearch ? "Family" : category);
+        _categoryCards = IsGlobalSearch ? GetAllCards() : GetCards(category);
+        UpdateCardSearch(string.Empty);
+    }
 
-        foreach (var card in GetCards(category))
+    public void UpdateGlobalSearch(string searchText, string category)
+    {
+        if (!IsGlobalSearch)
+        {
+            return;
+        }
+
+        SetCategoryCardColors(category);
+        UpdateCardSearch(searchText);
+    }
+
+    private void UpdateCardSearch(string searchText)
+    {
+        IReadOnlyList<ToolCard> matchingCards = string.IsNullOrWhiteSpace(searchText)
+            ? _categoryCards
+            : _categoryCards.Where(card => MatchesSearch(card, searchText)).ToArray();
+
+        Cards.Clear();
+        foreach (var card in matchingCards)
         {
             Cards.Add(card);
         }
 
-        EmptyState.Visibility = Cards.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+        EmptyState.Text = string.IsNullOrWhiteSpace(searchText)
+            ? IsGlobalSearch ? "No tools available yet." : "No tools available in this category yet."
+            : "No matching tools found.";
+        EmptyState.Visibility = matchingCards.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private static bool MatchesSearch(ToolCard card, string searchText)
+    {
+        return card.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+            || card.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+            || card.SubCards.Any(subCard =>
+                subCard.Title.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+                || subCard.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase));
     }
 
     private void ToolCard_Click(object sender, RoutedEventArgs e)
     {
+        if (sender is FrameworkElement { DataContext: ToolCard { Title: "CIDR calculator" } })
+        {
+            if (_cidrCalculatorWindow is null)
+            {
+                _cidrCalculatorWindow = new CidrCalculatorWindow();
+                _cidrCalculatorWindow.Closed += CidrCalculatorWindow_Closed;
+            }
+
+            _cidrCalculatorWindow.Activate();
+            return;
+        }
+
         if (sender is FrameworkElement { DataContext: ToolCard { Title: "API response time calculator" } })
         {
             if (_apiResponseTimeCalculatorWindow is null)
@@ -494,6 +546,26 @@ public sealed partial class CategoryPage : Page
 
             _tripPackingChecklistWindow.Activate();
         }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Vaccination Reminder (India)" } })
+        {
+            if (_vaccinationReminderWindow is null)
+            {
+                _vaccinationReminderWindow = new VaccinationReminderWindow();
+                _vaccinationReminderWindow.Closed += VaccinationReminderWindow_Closed;
+            }
+
+            _vaccinationReminderWindow.Activate();
+        }
+        else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Appliance Warranty Tracker" } })
+        {
+            if (_applianceWarrantyTrackerWindow is null)
+            {
+                _applianceWarrantyTrackerWindow = new ApplianceWarrantyTrackerWindow();
+                _applianceWarrantyTrackerWindow.Closed += ApplianceWarrantyTrackerWindow_Closed;
+            }
+
+            _applianceWarrantyTrackerWindow.Activate();
+        }
         else if (sender is FrameworkElement { DataContext: ToolCard { Title: "Nakshatra calculator" } })
         {
             if (_nakshatraCalculatorWindow is null)
@@ -576,6 +648,12 @@ public sealed partial class CategoryPage : Page
     private void TripPackingChecklistWindow_Closed(object sender, WindowEventArgs e) =>
         _tripPackingChecklistWindow = null;
 
+    private void VaccinationReminderWindow_Closed(object sender, WindowEventArgs e) =>
+        _vaccinationReminderWindow = null;
+
+    private void ApplianceWarrantyTrackerWindow_Closed(object sender, WindowEventArgs e) =>
+        _applianceWarrantyTrackerWindow = null;
+
     private void NakshatraCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
         _nakshatraCalculatorWindow = null;
 
@@ -593,6 +671,9 @@ public sealed partial class CategoryPage : Page
 
     private void ApiResponseTimeCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
         _apiResponseTimeCalculatorWindow = null;
+
+    private void CidrCalculatorWindow_Closed(object sender, WindowEventArgs e) =>
+        _cidrCalculatorWindow = null;
 
     private void CurlGeneratorWindow_Closed(object sender, WindowEventArgs e) =>
         _curlGeneratorWindow = null;
@@ -727,5 +808,12 @@ public sealed partial class CategoryPage : Page
             "Business" => BusinessToolCatalog.GetCards(),
             _ => Array.Empty<ToolCard>()
         };
+    }
+
+    private static IReadOnlyList<ToolCard> GetAllCards()
+    {
+        return new[] { "Family", "Health", "Finance", "Utility", "Education", "Technology", "Business" }
+            .SelectMany(GetCards)
+            .ToArray();
     }
 }
