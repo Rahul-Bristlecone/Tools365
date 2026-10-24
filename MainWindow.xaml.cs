@@ -13,6 +13,8 @@ namespace Tools365;
 public sealed partial class MainWindow : Window
 {
     private readonly Dictionary<string, NavigationBrushSet> _navigationBrushes = new();
+    private string _selectedCategory = "Family";
+    private bool _isResettingSearch;
 
     public MainWindow()
     {
@@ -37,9 +39,39 @@ public sealed partial class MainWindow : Window
     {
         if (sender is ToggleButton button && button.Tag is string category)
         {
+            _selectedCategory = category;
+            _isResettingSearch = true;
+            GlobalSearchBox.Text = string.Empty;
+            _isResettingSearch = false;
             SetActiveNavigationButton(button);
             NavFrame.Navigate(typeof(CategoryPage), category);
         }
+    }
+
+    private void GlobalSearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        if (_isResettingSearch)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(sender.Text))
+        {
+            if (NavFrame.Content is CategoryPage { IsGlobalSearch: true })
+            {
+                NavFrame.Navigate(typeof(CategoryPage), _selectedCategory);
+            }
+
+            return;
+        }
+
+        if (NavFrame.Content is not CategoryPage { IsGlobalSearch: true } page)
+        {
+            NavFrame.Navigate(typeof(CategoryPage), "GlobalSearch");
+            page = (CategoryPage)NavFrame.Content;
+        }
+
+        page.UpdateGlobalSearch(sender.Text, _selectedCategory);
     }
 
     private void CategoryButton_PointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
